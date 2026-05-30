@@ -1,0 +1,48 @@
+/* 🌌 Background */
+body {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* 🔳 Glass Card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 30px;
+    color: white;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+/* Inputs */
+.form-control {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+}
+
+.form-control:focus {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    box-shadow: none;
+}
+
+/* Buttons */
+.btn-modern {
+    background: #00c6ff;
+    border: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.btn-modern:hover {
+    background: #0072ff;
+}
+
+/* Center container */
+.auth-wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
