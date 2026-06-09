@@ -152,13 +152,47 @@
                             </span>
 
                         </td>
+                        
+                        <td class="d-flex gap-2">
 
-                        <td>
+                            @if($user->status == 'active')
 
-                            <button
-                                class="btn btn-warning btn-sm rounded-pill px-3"
-                                data-bs-toggle="modal"
-                                data-bs-target="#showUser{{ $user->id }}">
+                                <form action="{{ route('admin.users.disable', $user->id) }}"
+                                    method="POST">
+
+                                    @csrf
+
+                                    <button type="submit"
+                                            class="btn btn-danger btn-sm rounded-pill"
+                                            onclick="return confirm('Disable this account?')">
+
+                                        Disable
+
+                                    </button>
+
+                                </form>
+
+                            @else
+
+                                <form action="{{ route('admin.users.enable', $user->id) }}"
+                                    method="POST">
+
+                                    @csrf
+
+                                    <button type="submit"
+                                            class="btn btn-success btn-sm rounded-pill">
+
+                                        Enable
+
+                                    </button>
+
+                                </form>
+
+                            @endif
+
+                            <button class="btn btn-warning btn-sm rounded-pill px-3"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#showUser{{ $user->id }}">
 
                                 Show
 
@@ -218,9 +252,9 @@
 
                 @csrf
                 @method('PUT')
-
+                
                 <div class="modal-body p-4">
-
+                    
                     <div class="row">
 
                         <div class="col-md-4 mb-3">

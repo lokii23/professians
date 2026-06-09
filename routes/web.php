@@ -123,6 +123,7 @@ Route::middleware(['auth', 'admin'])
         // SECTIONS
         Route::get('/sections', [AdminController::class, 'sections'])
             ->name('admin.sections');
+            
 
         Route::get('/sections/{course}', [AdminController::class, 'studentsBySection'])
             ->name('admin.sections.show');
@@ -148,6 +149,14 @@ Route::middleware(['auth', 'admin'])
 
         Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])
             ->name('admin.users.update');
+
+            Route::post('/admin/users/{id}/disable',
+    [AdminController::class, 'disableUser'])
+    ->name('admin.users.disable');
+
+Route::post('/admin/users/{id}/enable',
+    [AdminController::class, 'enableUser'])
+    ->name('admin.users.enable');
 
     });
 /*

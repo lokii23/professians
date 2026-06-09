@@ -281,7 +281,7 @@
                            value="{{ old('middle_name') }}"
                            class="form-control modern-input"
                            placeholder="Middle Name"
-                           required>
+                           >
 
                 </div>
 
@@ -495,24 +495,27 @@
             <div class="col-md-6 mb-3">
 
                 <label class="form-label fw-semibold">
-
                     Password
-
                 </label>
 
                 <div class="input-group modern-group">
 
                     <span class="input-group-text">
-
                         🔒
-
                     </span>
 
                     <input type="password"
-                           name="password"
-                           class="form-control modern-input"
-                           placeholder="Enter Password"
-                           required>
+                        id="password"
+                        name="password"
+                        class="form-control modern-input"
+                        placeholder="Enter Password"
+                        required>
+
+                    <button type="button"
+                            class="input-group-text"
+                            onclick="togglePassword('password', this)">
+                        👁️
+                    </button>
 
                 </div>
 
@@ -521,24 +524,27 @@
             <div class="col-md-6 mb-3">
 
                 <label class="form-label fw-semibold">
-
                     Confirm Password
-
                 </label>
 
                 <div class="input-group modern-group">
 
                     <span class="input-group-text">
-
                         🔐
-
                     </span>
 
                     <input type="password"
-                           name="password_confirmation"
-                           class="form-control modern-input"
-                           placeholder="Confirm Password"
-                           required>
+                        id="password_confirmation"
+                        name="password_confirmation"
+                        class="form-control modern-input"
+                        placeholder="Confirm Password"
+                        required>
+
+                    <button type="button"
+                            class="input-group-text"
+                            onclick="togglePassword('password_confirmation', this)">
+                        👁️
+                    </button>
 
                 </div>
 
@@ -570,5 +576,23 @@
     </form>
 
 </div>
+<script>
 
+function togglePassword(id, btn)
+{
+    let input = document.getElementById(id);
+
+    if (input.type === "password")
+    {
+        input.type = "text";
+        btn.innerHTML = "🙈";
+    }
+    else
+    {
+        input.type = "password";
+        btn.innerHTML = "👁️";
+    }
+}
+
+</script>
 </x-guest-layout>

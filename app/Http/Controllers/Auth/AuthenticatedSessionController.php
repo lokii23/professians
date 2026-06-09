@@ -45,10 +45,22 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        if ($user->role == 'admin') {
+        // CHECK IF ACCOUNT IS DISABLED
+    if ($user->status === 'disabled') {
 
-            return redirect()->route('admin.dashboard');
-        }
+        Auth::logout();
+
+        return back()
+            ->withErrors([
+                'email' => 'Your account has been disabled by the administrator.',
+            ])
+            ->withInput();
+    }
+
+    if ($user->role == 'admin') {
+
+        return redirect()->route('admin.dashboard');
+    }
 
         return redirect()->route('dashboard');
     }

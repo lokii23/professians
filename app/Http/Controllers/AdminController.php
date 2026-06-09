@@ -15,18 +15,26 @@ class AdminController extends Controller
     {
         $sections = [
             "BSHM3A","BSHM3B","BSTM3A","BSED1A",
-            "BSIT1A","BSIT1B","BSIT2A","BSIT2B",
+            "BSIT1A","BSIT2A","BSIT2B",
             "BSIT3A","BSIT3B","BSIT4A","BSIT4B"
         ];
 
         return view('admin.sections', compact('sections'));
     }
 
-    public function studentsBySection($course)
+    public function studentsBySection(Request $request, $course)
     {
-        $students = User::where('course', $course)->get();
+        $sort = $request->get('sort', 'asc');
 
-        return view('admin.students-table', compact('students', 'course'));
+        $students = User::where('course', $course)
+            ->orderBy('last_name', $sort)
+            ->get();
+
+        return view('admin.students-table', compact(
+            'students',
+            'course',
+            'sort'
+        ));
     }
 
     public function updateUser(Request $request, $id)
@@ -42,5 +50,31 @@ class AdminController extends Controller
         }
 
         return back()->with('success', 'Password updated successfully.');
+    }
+
+    public function disableUser($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->status = 'disabled';
+        $user->save();
+
+        return back()->with(
+            'success',
+            'Account disabled successfully.'
+        );
+    }
+
+    public function enableUser($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->status = 'active';
+        $user->save();
+
+        return back()->with(
+            'success',
+            'Account enabled successfully.'
+        );
     }
 }
