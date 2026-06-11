@@ -223,21 +223,21 @@
 </div>
 
 @foreach($users as $user)
-
 <div class="modal fade"
      id="showUser{{ $user->id }}"
      tabindex="-1">
 
     <div class="modal-dialog modal-lg modal-dialog-centered">
 
-        <div class="modal-content border-0 rounded-4 overflow-hidden">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
 
-            <div class="modal-header bg-danger text-white">
+            <!-- Header -->
+            <div class="modal-header border-0 text-white"
+                 style="background: linear-gradient(135deg, #0d6efd, #0a58ca);">
 
                 <h5 class="modal-title fw-bold">
-
+                    <i class="bi bi-person-badge me-2"></i>
                     Student Information
-
                 </h5>
 
                 <button type="button"
@@ -252,185 +252,175 @@
 
                 @csrf
                 @method('PUT')
-                
-                <div class="modal-body p-4">
-                    
-                    <div class="row">
 
-                        <div class="col-md-4 mb-3">
+                <div class="modal-body p-4 bg-light">
 
-                            <label class="fw-semibold">
-                                First Name
-                            </label>
+                    <!-- Profile Section -->
+                    <div class="text-center mb-4">
 
-                            <input type="text"
-                                   class="form-control"
-                                   value="{{ $user->first_name }}"
-                                   readonly>
+                        @if($user->profile_photo)
+                            <img src="{{ asset('storage/profile_photo/' . $user->profile_photo) }}"
+                                 alt="Student Photo"
+                                 class="rounded-circle shadow-lg"
+                                 width="160"
+                                 height="160"
+                                 style="
+                                    object-fit: cover;
+                                    border: 5px solid #0d6efd;
+                                    padding: 4px;
+                                    background: white;">
+                        @else
+                            <div class="rounded-circle bg-secondary mx-auto shadow"
+                                 style="width:160px;height:160px;">
+                            </div>
+                        @endif
 
+                        <h3 class="fw-bold text-primary mt-3 mb-1">
+                            {{ $user->first_name }}
+                            {{ $user->last_name }}
+                        </h3>
+
+                        <p class="text-muted mb-2">
+                            {{ $user->course }}
+                        </p>
+
+                        <span class="badge bg-primary px-3 py-2 rounded-pill">
+                            {{ ucfirst($user->role) }}
+                        </span>
+
+                    </div>
+
+                    <!-- Personal Information -->
+                    <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+                        <div class="card-header bg-primary text-white fw-semibold">
+                            Personal Information
                         </div>
 
-                        <div class="col-md-4 mb-3">
+                        <div class="card-body">
 
-                            <label class="fw-semibold">
-                                Middle Name
-                            </label>
+                            <div class="row g-3">
 
-                            <input type="text"
-                                   class="form-control"
-                                   value="{{ $user->middle_name }}"
-                                   readonly>
+                                <div class="col-md-4">
+                                    <div class="bg-light border rounded-3 p-3 h-100">
+                                        <small class="text-muted">First Name</small>
+                                        <div class="fw-semibold">
+                                            {{ $user->first_name }}
+                                        </div>
+                                    </div>
+                                </div>
 
-                        </div>
+                                <div class="col-md-4">
+                                    <div class="bg-light border rounded-3 p-3 h-100">
+                                        <small class="text-muted">Middle Name</small>
+                                        <div class="fw-semibold">
+                                            {{ $user->middle_name ?? 'N/A' }}
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="col-md-4 mb-3">
+                                <div class="col-md-4">
+                                    <div class="bg-light border rounded-3 p-3 h-100">
+                                        <small class="text-muted">Last Name</small>
+                                        <div class="fw-semibold">
+                                            {{ $user->last_name }}
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <label class="fw-semibold">
-                                Last Name
-                            </label>
+                                <div class="col-md-6">
+                                    <div class="bg-light border rounded-3 p-3">
+                                        <small class="text-muted">Email Address</small>
+                                        <div class="fw-semibold">
+                                            {{ $user->email }}
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <input type="text"
-                                   class="form-control"
-                                   value="{{ $user->last_name }}"
-                                   readonly>
+                                <div class="col-md-6">
+                                    <div class="bg-light border rounded-3 p-3">
+                                        <small class="text-muted">Contact Number</small>
+                                        <div class="fw-semibold">
+                                            {{ $user->contact_number }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="bg-light border rounded-3 p-3">
+                                        <small class="text-muted">Gender</small>
+                                        <div class="fw-semibold">
+                                            {{ $user->gender }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="bg-light border rounded-3 p-3">
+                                        <small class="text-muted">Birthday</small>
+                                        <div class="fw-semibold">
+                                            {{ $user->birthday }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="bg-light border rounded-3 p-3">
+                                        <small class="text-muted">Age</small>
+                                        <div class="fw-semibold">
+                                            {{ $user->age }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="bg-light border rounded-3 p-3">
+                                        <small class="text-muted">Course</small>
+                                        <div class="fw-semibold">
+                                            {{ $user->course }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
 
                         </div>
 
                     </div>
 
-                    <div class="row">
+                    <!-- Password Section -->
+                    <div class="card border-0 shadow-sm rounded-4">
 
-                        <div class="col-md-6 mb-3">
-
-                            <label class="fw-semibold">
-                                Email
-                            </label>
-
-                            <input type="text"
-                                   class="form-control"
-                                   value="{{ $user->email }}"
-                                   readonly>
-
+                        <div class="card-header bg-primary text-white fw-semibold">
+                            Password Management
                         </div>
 
-                        <div class="col-md-6 mb-3">
+                        <div class="card-body">
 
-                            <label class="fw-semibold">
-                                Contact Number
+                            <label class="fw-semibold mb-2">
+                                Set New Password
                             </label>
-
-                            <input type="text"
-                                   class="form-control"
-                                   value="{{ $user->contact_number }}"
-                                   readonly>
-
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-md-4 mb-3">
-
-                            <label class="fw-semibold">
-                                Gender
-                            </label>
-
-                            <input type="text"
-                                   class="form-control"
-                                   value="{{ $user->gender }}"
-                                   readonly>
-
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-
-                            <label class="fw-semibold">
-                                Birthday
-                            </label>
-
-                            <input type="text"
-                                   class="form-control"
-                                   value="{{ $user->birthday }}"
-                                   readonly>
-
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-
-                            <label class="fw-semibold">
-                                Age
-                            </label>
-
-                            <input type="text"
-                                   class="form-control"
-                                   value="{{ $user->age }}"
-                                   readonly>
-
-                        </div>
-
-                    </div>
-
-                    <div class="mb-3">
-
-                        <label class="fw-semibold">
-                            Course
-                        </label>
-
-                        <input type="text"
-                               class="form-control"
-                               value="{{ $user->course }}"
-                               readonly>
-
-                    </div>
-
-                    <hr>
-
-                    <div class="mb-3">
-
-                        <label class="fw-semibold">
-                            Current Password
-                        </label>
-
-                        <div class="input-group">
 
                             <input type="password"
-                                id="password{{ $user->id }}"
-                                class="form-control"
-                                value="{{ $user->password }}"
-                                readonly>
+                                   name="password"
+                                   class="form-control form-control-lg"
+                                   placeholder="Enter new password">
 
-                            <button type="button"
-                                    class="btn btn-outline-secondary"
-                                    onclick="togglePassword({{ $user->id }})">
-
-                                Show
-
-                            </button>
+                            <small class="text-muted">
+                                Leave blank if you don't want to change the password.
+                            </small>
 
                         </div>
-
-                    </div>
-
-                    <div class="mb-3">
-
-                        <label class="fw-semibold">
-                            Set New Password
-                        </label>
-
-                        <input type="text"
-                            name="password"
-                            class="form-control"
-                            placeholder="Enter new password">
 
                     </div>
 
                 </div>
 
-                <div class="modal-footer">
+                <!-- Footer -->
+                <div class="modal-footer border-0 bg-light">
 
                     <button type="button"
-                            class="btn btn-light border"
+                            class="btn btn-outline-secondary rounded-pill px-4"
                             data-bs-dismiss="modal">
 
                         Close
@@ -438,7 +428,7 @@
                     </button>
 
                     <button type="submit"
-                            class="btn btn-success px-4">
+                            class="btn btn-primary rounded-pill px-4 shadow-sm">
 
                         Update Password
 
