@@ -56,8 +56,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         [ExamController::class, 'viewStudentResult']
     )->name('student.result.view');
 
+    Route::get('/student/faculty', function () {
+        return view('student.faculty');
+    })->name('student.faculty');
+    Route::get('/student/attendance', function () {
+        return view('student.attendance');
+    })->name('student.attendance');
     
-});
+    });
+
 
 Route::middleware('auth')->group(function () {
 

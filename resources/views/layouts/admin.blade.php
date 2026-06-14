@@ -109,11 +109,11 @@
     class="menu-item {{ request()->routeIs('admin.exams') ? 'active' : '' }}">
         📚 Exams
     </a>
+    
     <a href="{{ route('admin.sections') }}" 
     class="menu-item {{ request()->routeIs('admin.sections') ? 'active' : '' }}">
         👨‍🎓 Students
     </a>
-
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button class="btn btn-danger w-100 mt-3">Logout</button>

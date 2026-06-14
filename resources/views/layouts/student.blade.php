@@ -421,6 +421,18 @@ body{
             👤 My Account
 
         </a>
+        <a href="{{ route('student.attendance') }}"
+        class="{{ request()->routeIs('student.attendance') ? 'active-link' : '' }}">
+
+            📅 Attendance
+
+        </a>
+        <a href="{{ route('student.faculty') }}"
+        class="{{ request()->routeIs('student.faculty') ? 'active-link' : '' }}">
+
+            👨‍🏫 CCS Faculty
+
+        </a>
     </div>
 
     <!-- LOGOUT -->

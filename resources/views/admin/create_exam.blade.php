@@ -32,7 +32,7 @@
 
         </div>
         <div class="mb-3">
-            <label>Exam Title</label>
+            <label>Subject</label>
             <input type="text" name="title" class="form-control" required>
             
         </div>
