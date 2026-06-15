@@ -1,7 +1,16 @@
 @extends('layouts.admin')
 
 @section('content')
+<style>
+    .rounded-circle.shadow-lg{
+    transition:.3s ease;
+}
 
+.rounded-circle.shadow-lg:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 25px rgba(13,110,253,.5)!important;
+}
+</style>
 <div class="row g-4 mb-4">
 
     <div class="col-md-3">
@@ -259,16 +268,20 @@
                     <div class="text-center mb-4">
 
                         @if($user->profile_photo)
-                            <img src="{{ asset('storage/profile_photo/' . $user->profile_photo) }}"
-                                 alt="Student Photo"
-                                 class="rounded-circle shadow-lg"
-                                 width="160"
-                                 height="160"
-                                 style="
+                            <img src="{{ asset('storage/profile_photos/' . $user->profile_photo) }}"
+                                alt="Student Photo"
+                                class="rounded-circle shadow-lg"
+                                width="160"
+                                height="160"
+                                data-bs-toggle="modal"
+                                data-bs-target="#photoModal{{ $user->id }}"
+                                style="
                                     object-fit: cover;
                                     border: 5px solid #0d6efd;
                                     padding: 4px;
-                                    background: white;">
+                                    background: white;
+                                    cursor:pointer;
+                                    transition:.3s;">
                         @else
                             <div class="rounded-circle bg-secondary mx-auto shadow"
                                  style="width:160px;height:160px;">
@@ -443,7 +456,38 @@
     </div>
 
 </div>
+@if($user->profile_photo)
 
+<div class="modal fade"
+     id="photoModal{{ $user->id }}"
+     tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+
+        <div class="modal-content bg-transparent border-0">
+
+            <!-- X Button -->
+            <button type="button"
+                    class="btn-close btn-close-white position-absolute top-0 end-0 m-3"
+                    data-bs-dismiss="modal"
+                    style="z-index:999;">
+            </button>
+
+            <div class="modal-body text-center p-0">
+
+                <img src="{{ asset('storage/profile_photos/' . $user->profile_photo) }}"
+                     class="img-fluid rounded-4 shadow-lg"
+                     style="max-height:90vh;">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@endif
 @endforeach
 <script>
 

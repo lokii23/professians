@@ -44,6 +44,13 @@
         object-fit:cover;
         border:4px solid rgba(255,255,255,.12);
         box-shadow:0 0 30px rgba(59,130,246,.35);
+        cursor:pointer;
+        transition:.3s ease;
+    }
+
+    .profile-avatar:hover{
+        transform:scale(1.08);
+        box-shadow:0 0 40px rgba(59,130,246,.6);
     }
 
     .avatar-placeholder{
@@ -218,15 +225,17 @@
 
                     @if(auth()->user()->profile_photo)
 
-                        <img src="{{ asset('storage/profile_photos/' . auth()->user()->profile_photo) }}"
-                            class="profile-avatar">
+                        <img
+                            src="{{ asset('storage/profile_photos/' . auth()->user()->profile_photo) }}"
+                            class="profile-avatar"
+                            style="cursor:pointer"
+                            data-bs-toggle="modal"
+                            data-bs-target="#photoModal">
 
                     @else
 
                         <div class="avatar-placeholder">
-
                             {{ strtoupper(substr(auth()->user()->first_name,0,1)) }}
-
                         </div>
 
                     @endif
@@ -552,6 +561,36 @@
                 </div>
 
             </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- PHOTO PREVIEW MODAL -->
+<div class="modal fade" id="photoModal" tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+
+        <div class="modal-content bg-transparent border-0">
+
+            <!-- X BUTTON -->
+            <button
+                type="button"
+                class="btn-close btn-close-white position-absolute top-0 end-0 m-3"
+                data-bs-dismiss="modal"
+                style="z-index:999;">
+            </button>
+
+            <div class="modal-body text-center p-0">
+
+                <img
+                    src="{{ asset('storage/profile_photos/' . auth()->user()->profile_photo) }}"
+                    class="img-fluid rounded-4 shadow-lg"
+                    style="max-height:90vh;">
+
+            </div>
 
         </div>
 
