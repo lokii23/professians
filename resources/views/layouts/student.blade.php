@@ -390,10 +390,14 @@ body{
 
         <h5 class="text-white mt-3 fw-bold">
 
-            {{ auth()->user()->first_name }}
+            {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
 
         </h5>
+        <div style="color:#94a3b8; font-size:12px; line-height:1.5;">
 
+            {{ Str::limit(auth()->user()->bio, 60) }}
+
+        </div>
     </div>
     
         <hr>

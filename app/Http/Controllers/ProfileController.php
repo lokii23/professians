@@ -27,6 +27,8 @@ class ProfileController extends Controller
 
             'email' => 'required|email',
 
+            'bio' => 'nullable|string|max:500',
+
             'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
 
         ]);
@@ -49,12 +51,14 @@ class ProfileController extends Controller
             'last_name' => $request->last_name,
 
             'email' => $request->email,
-
+            
             'profile_photo' => $user->profile_photo,
+
+            'bio' => $request->bio,
 
         ]);
 
-        return back()->with('success', 'Profile updated successfully.');
+        return back()->with('success', 'Update successfully.');
 
     }
 

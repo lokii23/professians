@@ -417,9 +417,9 @@
 
                             <div class="exam-title">
 
-                                {{ $result->exam->title }}
+                                {{ $result->exam?->title ?? 'Deleted Exam' }}
                                 -
-                                {{ $result->exam->description }}   
+                                {{ $result->exam?->description ?? 'No Description' }}   
                                 
 
                             </div>
@@ -431,7 +431,7 @@
 
                         </div>
 
-                        @if($result->exam->show_result)
+                        @if($result->exam && $result->exam->show_result)
 
                             <div class="score-circle">
 
@@ -449,7 +449,7 @@
 
                     </div>
 
-                    @if($result->exam->show_result)
+                    @if($result->exam && $result->exam->show_result)
 
                         <div class="progress">
 
@@ -460,7 +460,7 @@
                                  {{
                                     $result->exam &&
                                     $result->exam->questions &&
-                                    $result->exam->questions->count() ?? 0
+                                    $result->exam?->questions?->count() ?? 0
 
                                     ? ($result->score / $result->exam->questions->count()) * 100
 
@@ -477,7 +477,7 @@
 
                             {{ $result->score }}
                             out of
-                            {{ $result->exam->questions->count() }}
+                            {{ $result->exam?->questions?->count() ?? 0 }}
                             correct answers
 
                         </div>

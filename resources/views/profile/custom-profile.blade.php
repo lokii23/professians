@@ -252,7 +252,24 @@
                         Student Account
 
                     </div>
+                    <div class="mt-3">
 
+                        <div style="
+                            color:#cbd5e1;
+                            font-size:13px;
+                            line-height:1.7;
+                            background:rgba(255,255,255,.04);
+                            border:1px solid rgba(255,255,255,.06);
+                            border-radius:14px;
+                            padding:12px;
+                        ">
+
+                            {{ auth()->user()->bio ?: 'No bio added yet.' }}
+
+                        </div>
+
+                    </div>
+                    
                     <div class="mt-4 text-start">
 
                         <div class="info-box">
@@ -268,9 +285,9 @@
                                 {{ auth()->user()->email }}
 
                             </div>
-
+                            
                         </div>
-
+                        
                         <div class="info-box">
 
                             <div class="info-label">
@@ -286,7 +303,7 @@
                             </div>
 
                         </div>
-
+                        
                         <div class="info-box">
 
                             <div class="info-label">
@@ -302,7 +319,6 @@
                             </div>
 
                         </div>
-
                     </div>
 
                 </div>
@@ -442,7 +458,22 @@
                                        class="profile-input">
 
                             </div>
+                            
+                            <div class="col-12">
 
+                                <label class="form-label">
+
+                                    Bio
+
+                                </label>
+
+                                <textarea
+                                    name="bio"
+                                    rows="4"
+                                    class="profile-input"
+                                    placeholder="Tell something about yourself...">{{ auth()->user()->bio }}</textarea>
+
+                            </div>
                         </div>
 
                         <!-- BUTTONS -->
