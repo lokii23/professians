@@ -431,6 +431,14 @@ body{
             📅 Attendance
 
         </a>
+
+        <a href="{{ route('messages.index') }}" 
+            style="pointer-events: none; cursor: default; opacity: 0.5; color:#ff004c"  
+            tabindex="-1" 
+            aria-disabled="true">
+                📩 Cyber-Chat
+            </a>
+            
         <a href="{{ route('student.faculty') }}"
         class="{{ request()->routeIs('student.faculty') ? 'active-link' : '' }}">
 

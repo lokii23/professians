@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     });
 
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/messages', [MessageController::class, 'index'])
+        ->name('messages.index');
+
+    Route::get('/messages/{user}', [MessageController::class, 'show'])
+        ->name('messages.show');
+
+    Route::post('/messages/send', [MessageController::class, 'send'])
+        ->name('messages.send');
+});
 
 Route::middleware('auth')->group(function () {
 
