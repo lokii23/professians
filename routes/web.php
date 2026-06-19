@@ -182,6 +182,12 @@ Route::middleware(['auth', 'admin'])
             '/admin/exams/{id}/copy',
             [ExamController::class, 'copyExam']
         )->name('admin.copy-exam');
+
+        Route::get(
+            '/admin/results/{id}/export',
+            [AdminController::class,'exportResults']
+        )->name('admin.results.export');
+
     });
 /*
 |--------------------------------------------------------------------------

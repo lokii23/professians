@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExamResultsExport;
 
 
 class AdminController extends Controller
@@ -75,6 +77,14 @@ class AdminController extends Controller
         return back()->with(
             'success',
             'Account enabled successfully.'
+        );
+    }
+
+    public function exportResults($id)
+    {
+        return Excel::download(
+            new ExamResultsExport($id),
+            'exam-results.xlsx'
         );
     }
 }

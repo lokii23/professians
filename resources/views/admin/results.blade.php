@@ -82,7 +82,12 @@
 
         <!-- SORT BUTTONS -->
         <div class="d-flex gap-2 mt-2 mt-md-0">
+            <a href="{{ route('admin.results.export', $exam->id) }}"
+            class="btn btn-sm btn-success">
 
+                📥 Export Excel
+
+            </a>
             <a href="{{ route('admin.results', ['id' => $exam->id, 'sort' => 'asc']) }}"
                class="btn btn-sm btn-primary">
 
@@ -96,7 +101,7 @@
                 Sort Z-A
 
             </a>
-
+            
         </div>
 
     </div>
