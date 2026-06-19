@@ -169,14 +169,19 @@ Route::middleware(['auth', 'admin'])
         Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])
             ->name('admin.users.update');
 
-            Route::post('/admin/users/{id}/disable',
-    [AdminController::class, 'disableUser'])
-    ->name('admin.users.disable');
+        Route::post('/admin/users/{id}/disable',
+            [AdminController::class, 'disableUser'])
+            ->name('admin.users.disable');
 
-Route::post('/admin/users/{id}/enable',
-    [AdminController::class, 'enableUser'])
-    ->name('admin.users.enable');
+        Route::post('/admin/users/{id}/enable',
+        [AdminController::class, 'enableUser'])
+        ->name('admin.users.enable');
 
+
+        Route::post(
+            '/admin/exams/{id}/copy',
+            [ExamController::class, 'copyExam']
+        )->name('admin.copy-exam');
     });
 /*
 |--------------------------------------------------------------------------

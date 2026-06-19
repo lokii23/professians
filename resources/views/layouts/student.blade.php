@@ -436,7 +436,7 @@ body{
             style="pointer-events: none; cursor: default; opacity: 0.5; color:#ff004c"  
             tabindex="-1" 
             aria-disabled="true">
-                📩 Cyber-Chat
+                <i>📩 Cyber-Chat</i>
             </a>
             
         <a href="{{ route('student.faculty') }}"

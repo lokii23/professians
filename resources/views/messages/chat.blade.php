@@ -101,7 +101,7 @@
                         placeholder="Type your message..."
                         required></textarea>
 
-                    <button class="btn send-btn">
+                    <button class="btn send-btn" disabled>
                         <i class="bi bi-send-fill"></i>
                     </button>
 

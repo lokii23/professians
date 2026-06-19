@@ -47,7 +47,18 @@
                         Questions
 
                     </a>
+                    <!-- COPY EXAM -->
+                    <form action="{{ route('admin.copy-exam', $exam->id) }}"
+                        method="POST"
+                        class="d-inline">
 
+                        @csrf
+
+                        <button class="btn btn-info btn-sm">
+                            📋 Copy Exam
+                        </button>
+
+                    </form>
                     <!-- RESULTS -->
                     <a href="{{ route('admin.results', $exam->id) }}"
                     class="btn btn-primary btn-sm">
@@ -139,16 +150,16 @@
 
                 <div class="modal-body">
 
-                    <input type="text" name="title" id="editTitle" class="form-control mb-2">
-                    <textarea name="description" id="editDescription" class="form-control mb-2"></textarea>
+                    <input type="text" name="title" id="editTitle" class="form-control mb-2" required>
+                    <textarea name="description" id="editDescription" class="form-control mb-2" required ></textarea>
 
-                    <select name="type" id="editType" class="form-control mb-2">
+                    <select name="type" id="editType" class="form-control mb-2" required>
                         <option value="quiz">Quiz</option>
                         <option value="mid-exam">Midterm</option>
                         <option value="final-exam">Final</option>
                     </select>
 
-                    <input type="text" name="passkey" id="editPasskey" class="form-control">
+                    <input type="text" name="passkey" id="editPasskey" class="form-control" required>
 
                 </div>
 

@@ -482,4 +482,66 @@ class ExamController extends Controller
             'Shuffle mode updated.'
         );
     }
+
+    public function copyExam($id)
+{
+    $exam = Exam::findOrFail($id);
+
+    // Create duplicate exam
+    $newExam = Exam::create([
+
+        'title' => $exam->title . ' (Copy)',
+
+        'description' => $exam->description,
+
+        'duration' => $exam->duration,
+
+        'type' => $exam->type,
+
+        'passkey' => $exam->passkey,
+
+        'user_id' => auth()->id(),
+
+        'is_active' => false,
+
+        'show_result' => $exam->show_result,
+
+        'shuffle_questions' => $exam->shuffle_questions,
+
+    ]);
+
+    // Copy questions
+    $questions = Question::where(
+        'exam_id',
+        $exam->id
+    )->get();
+
+    foreach ($questions as $question) {
+
+        Question::create([
+
+            'exam_id' => $newExam->id,
+
+            'question' => $question->question,
+
+            'option_a' => $question->option_a,
+
+            'option_b' => $question->option_b,
+
+            'option_c' => $question->option_c,
+
+            'option_d' => $question->option_d,
+
+            'correct_answer' => $question->correct_answer,
+
+        ]);
+    }
+
+    return redirect()
+        ->route('admin.questions', $newExam->id)
+        ->with(
+            'success',
+            'Exam copied successfully. You can now edit it.'
+        );
+}
 }

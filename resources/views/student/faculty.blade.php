@@ -48,13 +48,37 @@ body{
 .faculty-photo{
     width:130px;
     height:130px;
-
     border-radius:50%;
     object-fit:cover;
-
     border:4px solid rgba(59,130,246,.4);
-
     box-shadow:0 0 25px rgba(59,130,246,.35);
+    cursor:pointer;
+    transition:.3s;
+}
+
+.faculty-photo:hover{
+    transform:scale(1.08);
+}
+
+.view-btn{
+    margin-top:15px;
+    width:100%;
+    border:none;
+    border-radius:14px;
+    padding:10px;
+    font-weight:600;
+    color:white;
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+    );
+    transition:.3s;
+}
+
+.view-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(37,99,235,.35);
 }
 
 .faculty-name{
@@ -116,7 +140,14 @@ body{
             <div class="faculty-card">
 
                 <img src="/faculty/teacher1.jpg"
-                     class="faculty-photo">
+                    class="faculty-photo"
+                    onclick="showFaculty(
+                        '/faculty/teacher1.jpg',
+                        'Benjie S. Polo',
+                        'CCS OIC',
+                        'benjiepolo@professians',
+                        '4th Year Adviser'
+                    )">
 
                 <div class="faculty-name">
                     Benjie S. Polo
@@ -150,7 +181,14 @@ body{
             <div class="faculty-card">
 
                 <img src="/faculty/teacher3.jpg"
-                     class="faculty-photo">
+                    class="faculty-photo"
+                    onclick="showFaculty(
+                        '/faculty/teacher3.jpg',
+                        'Wheljine C. Talavera',
+                        'FACULTY',
+                        'caballero@professians',
+                        '3rd Year Adviser'
+                    )">
 
                 <div class="faculty-name">
                     Wheljine C. Talavera
@@ -176,7 +214,6 @@ body{
                 <div class="info-box">
                     <div class="info-label" style="color: #ff0055;">DEVELOPER</div>
                 </div>
-
             </div>
 
         </div>
@@ -187,7 +224,14 @@ body{
             <div class="faculty-card">
 
                 <img src="/faculty/teacher_2.jpg"
-                     class="faculty-photo">
+                    class="faculty-photo"
+                    onclick="showFaculty(
+                        '/faculty/teacher_2.jpg',
+                        'Bob Keri O. Bacus',
+                        'FACULTY',
+                        'keribacus@professians',
+                        '2nd Year Adviser'
+                    )">
 
                 <div class="faculty-name">
                     Bob Keri O. Bacus
@@ -221,7 +265,14 @@ body{
             <div class="faculty-card">
 
                 <img src="/faculty/teacher_4.jpg"
-                     class="faculty-photo">
+                    class="faculty-photo"
+                    onclick="showFaculty(
+                        '/faculty/teacher_4.jpg',
+                        'Bernce Villacorta',
+                        'FACULTY',
+                        'bernce@professians',
+                        '1st Year Adviser'
+                    )">
 
                 <div class="faculty-name">
                     Bernce Villacorta
@@ -252,5 +303,93 @@ body{
     </div>
 
 </div>
+<div class="modal fade"
+     id="facultyModal"
+     tabindex="-1">
 
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content bg-dark border-secondary">
+
+            <div class="modal-header border-secondary">
+
+                <h5 class="modal-title text-white">
+                    Faculty Information
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body text-center">
+
+                <img id="modalPhoto"
+                     class="rounded-circle mb-3"
+                     style="
+                        width:250px;
+                        height:250px;
+                        object-fit:cover;
+                     ">
+
+                <h4 id="modalName"
+                    class="text-white">
+                </h4>
+
+                <div id="modalPosition"
+                     class="text-info mb-3">
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">
+                        Email
+                    </div>
+
+                    <div id="modalEmail"
+                         class="info-value">
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">
+                        Advisory
+                    </div>
+
+                    <div id="modalAdvisory"
+                         class="info-value">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+function showFaculty(
+    photo,
+    name,
+    position,
+    email,
+    advisory
+)
+{
+    document.getElementById('modalPhoto').src = photo;
+    document.getElementById('modalName').innerText = name;
+    document.getElementById('modalPosition').innerText = position;
+    document.getElementById('modalEmail').innerText = email;
+    document.getElementById('modalAdvisory').innerText = advisory;
+
+    new bootstrap.Modal(
+        document.getElementById('facultyModal')
+    ).show();
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 @endsection

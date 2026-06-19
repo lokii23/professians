@@ -73,13 +73,12 @@
         width: 100%;
         height: 4px;
 
-        background:
-            linear-gradient(
-                90deg,
-                #2563eb,
-                #3b82f6,
-                #60a5fa
-            );
+        background: linear-gradient(
+            90deg,
+            #b40000,
+            #ff0055,
+            #2563eb
+        );
     }
 
     .exam-card:hover {
@@ -176,7 +175,7 @@
 
     .taken-btn {
 
-        background: rgba(255,255,255,0.08);
+        background: rgba(253, 250, 250, 0.08);
 
         border: 1px solid rgba(255,255,255,0.08);
 
@@ -198,6 +197,90 @@
         transform: scale(1.03);
         box-shadow: 0 15px 35px rgba(0,0,0,.4);
     }
+
+    .subscribe-card{
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+}
+
+.subscribe-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:4px;
+    background: linear-gradient(
+        90deg,
+        #b40000,
+        #ff0055,
+        #2563eb
+    );
+}
+
+.subscribe-title{
+    color:white;
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:15px;
+    margin-left: 40px;
+}
+
+.subscribe-title span{
+    color:#ff4d4d;
+}
+
+.subscribe-text{
+    color:#cbd5e1;
+    font-size:15px;
+    line-height:1.7;
+    
+    margin-left: 40px;
+}
+
+.subscribe-input{
+    background:rgba(255,255,255,.08);
+    border:none;
+    color:white;
+    border-radius:14px 0 0 14px;
+    padding:14px 18px;
+    
+    margin-left: 40px;
+}
+
+.subscribe-input:focus{
+    background:rgba(255,255,255,.12);
+    color:white;
+    box-shadow:none;
+}
+
+.subscribe-btn{
+    background:linear-gradient(
+        135deg,
+        #b40000,
+        #ff0055
+    );
+    border:none;
+    border-radius:0 14px 14px 0;
+    padding:14px 24px;
+    font-weight:600;
+}
+
+.subscribe-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(255,0,85,.35);
+}
+
+.subscribe-image{
+    max-width:280px;
+    filter:drop-shadow(
+        0 15px 30px rgba(0,0,0,.35)
+    );
+}
 </style>
 
 <div class="container py-4">
@@ -227,7 +310,6 @@
     </div>
 
     <hr style="border-color: #ff0055; margin: 40px 0;">
-
     <!-- NEWS FEED -->
 
     <div class="dashboard-header">
@@ -560,8 +642,70 @@
         </div>
 
     </div>
-</div><!-- IMAGE VIEWER MODAL -->
+</div>
 
+<!-- IMAGE VIEWER MODAL -->
+
+
+    <hr style="border-color: #ff0055; margin: 40px 0;">
+    
+    <!-- Subscribe Section -->
+    <section class="mb-5">
+
+        <div class="subscribe-card">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-7">
+
+                    <h2 class="subscribe-title">
+                        Become a <span>Professian</span> 🚀
+                    </h2>
+
+                    <p class="subscribe-text">
+                        Join the College of Computer Studies and start your journey
+                        toward innovation, leadership, and academic excellence.
+                        Stay updated with admissions, announcements, and campus activities.
+                    </p>
+
+                    <form class="mt-4">
+
+                        <div class="input-group">
+
+                            <input
+                                type="email"
+                                class="form-control subscribe-input"
+                                placeholder="Enter your email address">
+
+                            <button
+                                class="btn subscribe-btn"
+                                type="submit">
+
+                                Subscribe
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="col-lg-5 text-center">
+
+                    <img
+                        src="{{ asset('img/image.png') }}"
+                        class="img-fluid subscribe-image"
+                        alt="Professian">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- /Subscribe Section -->
 <div class="modal fade"
      id="imageModal"
      tabindex="-1">
