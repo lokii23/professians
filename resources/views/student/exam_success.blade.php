@@ -117,7 +117,7 @@ setTimeout(function () {
 
     window.location.href = "/student/result";
 
-}, 3000);
+}, 1500);
 
 </script>
 
