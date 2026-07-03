@@ -308,10 +308,46 @@
     <div class="row g-4" id="examContainer">
         
     </div>
-
+    
     <hr style="border-color: #ff0055; margin: 40px 0;">
     <!-- NEWS FEED -->
+    <div class="position-relative mb-5">
 
+    <video
+        autoplay
+        muted
+        loop
+        class="w-100 rounded-4"
+        style="
+            height:500px;
+            object-fit:cover;
+            border:1px solid rgba(255,255,255,.08);
+        ">
+
+        <source
+            src="{{ asset('videos/Vlog2.mp4') }}"
+            type="video/mp4">
+
+    </video>
+
+    <div class="position-absolute top-50 start-0 translate-middle-y px-5">
+
+        <h1 class="text-white fw-bold">
+            Welcome Professians!
+        </h1>
+
+        <p class="text-light">
+            Innovate • Create • Lead
+        </p>
+
+        <a href="#"
+           class="btn btn-danger px-4">
+            Learn More
+        </a>
+
+    </div>
+
+</div>
     <div class="dashboard-header">
 
         <div class="dashboard-title">
