@@ -281,6 +281,117 @@
         0 15px 30px rgba(0,0,0,.35)
     );
 }
+.position-relative{
+    overflow:hidden;
+    border-radius:24px;
+}
+
+/* Dark gradient overlay */
+.video-overlay{
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    height:45%;
+
+    display:flex;
+    align-items:flex-end;
+
+    padding:45px;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.85),
+            rgba(0,0,0,.45),
+            transparent
+        );
+
+}
+
+/* Content */
+.video-content{
+    max-width:600px;
+}
+
+.hero-badge{
+
+    display:inline-block;
+
+    background:rgba(255,255,255,.15);
+
+    backdrop-filter:blur(10px);
+
+    color:white;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    font-size:13px;
+
+    margin-bottom:18px;
+
+}
+
+.hero-title{
+
+    color:white;
+
+    font-size:48px;
+
+    font-weight:800;
+
+    margin-bottom:10px;
+
+    text-shadow:0 5px 20px rgba(0,0,0,.4);
+
+}
+
+.hero-subtitle{
+
+    color:#e2e8f0;
+
+    font-size:18px;
+
+    margin-bottom:25px;
+
+}
+
+.hero-btn{
+
+    background:linear-gradient(
+        135deg,
+        #ff0055,
+        #b40000
+    );
+
+    color:white;
+
+    border:none;
+
+    padding:14px 35px;
+
+    border-radius:50px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.hero-btn:hover{
+
+    transform:translateY(-3px);
+
+    color:white;
+
+    box-shadow:0 10px 30px rgba(255,0,85,.45);
+
+}
 </style>
 
 <div class="container py-4">
@@ -330,24 +441,32 @@
 
     </video>
 
-    <div class="position-absolute top-50 start-0 translate-middle-y px-5">
+        <div class="video-overlay">
 
-        <h1 class="text-white fw-bold">
-            Welcome Professians!
-        </h1>
+            <div class="video-content">
 
-        <p class="text-light">
-            Innovate • Create • Lead
-        </p>
+                <span class="hero-badge">
+                    🎓 College of Computer Studies
+                </span>
 
-        <a href="#"
-           class="btn btn-danger px-4">
-            Learn More
-        </a>
+                <h1 class="hero-title">
+                    Welcome Professians!
+                </h1>
+
+                <p class="hero-subtitle">
+                    Innovate • Create • Lead the Future of Technology
+                </p>
+
+                <a href="#"
+                class="btn hero-btn">
+                    Explore CCS
+                </a>
+
+            </div>
+
+        </div>
 
     </div>
-
-</div>
     <div class="dashboard-header">
 
         <div class="dashboard-title">
