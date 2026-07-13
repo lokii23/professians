@@ -452,6 +452,36 @@ body{
     transform:translateX(4px);
 
 }
+.option-box.selected{
+
+    background:rgba(34,197,94,.18);
+
+    border:2px solid #22c55e;
+
+    transform:translateX(4px);
+
+    box-shadow:
+        0 0 20px rgba(34,197,94,.35);
+
+}
+.option-box.selected .option-letter{
+
+    background:
+    linear-gradient(
+        135deg,
+        #16a34a,
+        #22c55e
+    );
+
+}
+
+.option-box.selected .option-text{
+
+    color:#ffffff;
+
+    font-weight:700;
+
+}
 
 .option-box input[type="radio"]{
 
@@ -690,6 +720,35 @@ document.getElementById('confirmSubmit')
 
 </script>
 <script>
+    // Highlight selected answer
+
+document.querySelectorAll('input[type="radio"]').forEach(function(radio){
+
+    radio.addEventListener('change', function(){
+
+        // Get all radio buttons with the same question name
+        let group =
+            document.querySelectorAll(
+                'input[name="' + this.name + '"]'
+            );
+
+        // Remove selected class
+        group.forEach(function(item){
+
+            item.closest('.option-box')
+                .classList.remove('selected');
+
+        });
+
+        // Add selected class
+        this.closest('.option-box')
+            .classList.add('selected');
+
+    });
+
+});
+</script>
+<script>
 
     let duration = {{ $exam->duration }} * 60;
 
@@ -721,4 +780,6 @@ document.getElementById('confirmSubmit')
     },1000);
 
 </script>
+
+
 @endsection

@@ -439,19 +439,19 @@ class ExamController extends Controller
 
     public function studentResults()
     {
-        $results = Result::where(
-            'user_id',
-            auth()->id()
-        )
-        ->with('exam.questions')
-        ->latest()
-        ->get();
+        $results = Result::where('user_id', auth()->id())
+            ->whereHas('exam') // Only include results with existing exams
+            ->with('exam.questions')
+            ->latest()
+            ->get();
 
         return view(
             'student.result',
             compact('results')
         );
     }
+
+
 
     public function viewStudentResult($id)
     {
