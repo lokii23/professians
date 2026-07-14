@@ -981,7 +981,7 @@ NETFLIX SCROLL BUTTON
 
     <div class="hero">
 
-        <img src="{{ asset('img/ccs26.jpg') }}">
+        <img src="{{ asset('img/it24.jpg') }}">
 
         <div class="hero-overlay"></div>
 
@@ -1051,7 +1051,7 @@ NETFLIX SCROLL BUTTON
 
             <div class="col-lg-6">
 
-                <img src="{{ asset('img/ccsor.jpg') }}"
+                <img src="{{ asset('ccs.png') }}"
                     class="img-fluid about-image">
 
             </div>
@@ -1805,37 +1805,37 @@ NETFLIX SCROLL BUTTON
         <div class="row g-4">
 
             <div class="col-lg-4 col-md-6">
-                <img src="{{ asset('img/gallery1.jpg') }}"
+                <img src="{{ asset('img/g1.jpg') }}"
                      class="gallery-img"
                      onclick="openGallery(this.src)">
             </div>
 
             <div class="col-lg-4 col-md-6">
-                <img src="{{ asset('img/gallery2.jpg') }}"
+                <img src="{{ asset('img/g2.jpg') }}"
                      class="gallery-img"
                      onclick="openGallery(this.src)">
             </div>
 
             <div class="col-lg-4 col-md-6">
-                <img src="{{ asset('img/gallery3.jpg') }}"
+                <img src="{{ asset('img/g3.jpg') }}"
                      class="gallery-img"
                      onclick="openGallery(this.src)">
             </div>
 
             <div class="col-lg-4 col-md-6">
-                <img src="{{ asset('img/gallery4.jpg') }}"
+                <img src="{{ asset('img/g4.jpg') }}"
                      class="gallery-img"
                      onclick="openGallery(this.src)">
             </div>
 
             <div class="col-lg-4 col-md-6">
-                <img src="{{ asset('img/gallery5.jpg') }}"
+                <img src="{{ asset('img/g5.jpg') }}"
                      class="gallery-img"
                      onclick="openGallery(this.src)">
             </div>
 
             <div class="col-lg-4 col-md-6">
-                <img src="{{ asset('img/gallery6.jpg') }}"
+                <img src="{{ asset('img/g6.jpg') }}"
                      class="gallery-img"
                      onclick="openGallery(this.src)">
             </div>
