@@ -719,6 +719,85 @@ NETFLIX SHOWCASE
     opacity:1;
 
 }
+/* =========================
+NETFLIX SCROLL BUTTON
+========================= */
+
+
+.video-container{
+
+    position:relative;
+
+}
+
+
+.video-row{
+
+    display:flex;
+
+    gap:20px;
+
+    overflow-x:hidden;
+
+    padding:20px 40px;
+
+    scroll-behavior:smooth;
+
+}
+
+
+.scroll-btn{
+
+    position:absolute;
+
+    top:45%;
+
+    transform:translateY(-50%);
+
+    width:55px;
+
+    height:90px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:rgba(0,0,0,.65);
+
+    color:white;
+
+    font-size:45px;
+
+    cursor:pointer;
+
+    z-index:10;
+
+    transition:.3s;
+
+}
+
+
+.scroll-btn:hover{
+
+    background:#2563eb;
+
+    transform:translateY(-50%) scale(1.1);
+
+}
+
+
+.scroll-btn.left{
+
+    left:0;
+
+}
+
+
+.scroll-btn.right{
+
+    right:0;
+
+}
 /* ========================= */
 /* GALLERY */
 /* ========================= */
@@ -1395,23 +1474,24 @@ NETFLIX SHOWCASE
 
             <h2 id="videoTitle">
 
-                CCS Promotional Video
+                Kung ’Di Rin Lang Ikaw
 
             </h2>
 
             <p id="videoDescription">
 
-                A cinematic promotional video showcasing the College of Computer Studies using Adobe Premiere Pro and After Effects.
+                A heartfelt interpretative music video expressing emotions through storytelling, cinematography, and creative editing.
 
             </p>
 
             <div class="tech-tags">
 
                 <span>Premiere Pro</span>
+                
+                <span>CCS Video Production</span>
 
-                <span>After Effects</span>
+                <span>ELECTIVE 3</span>
 
-                <span>Photoshop</span>
 
             </div>
 
@@ -1427,7 +1507,15 @@ NETFLIX SHOWCASE
 
     </h3>
 
-    <div class="video-row">
+    <div class="video-container">
+
+        <button class="scroll-btn left"
+                onclick="scrollVideos(-400)">
+            ❮
+        </button>
+        
+
+        <div class="video-row" id="videoRow">
 
         <!-- VIDEO 1 -->
 
@@ -1435,12 +1523,12 @@ NETFLIX SHOWCASE
 
             onclick="changeVideo(
                 '{{ asset('videos/project1.mp4') }}',
-                'CCS Promotional Video',
-                'A cinematic promotional video showcasing the College of Computer Studies.'
+                'Kung ’Di Rin Lang Ikaw',
+                'A heartfelt interpretative music video expressing emotions through storytelling, cinematography, and creative editing.'
             )">
 
             <img
-                src="{{ asset('img/thumb1.jpg') }}">
+                src="{{ asset('img/thumb1.png') }}">
 
             <div class="video-overlay">
 
@@ -1450,7 +1538,7 @@ NETFLIX SHOWCASE
 
             <h5>
 
-                CCS Promotional Video
+                Kung ’Di Rin Lang Ikaw
 
             </h5>
 
@@ -1462,12 +1550,12 @@ NETFLIX SHOWCASE
 
             onclick="changeVideo(
                 '{{ asset('videos/project2.mp4') }}',
-                'Campus Documentary',
-                'A documentary featuring campus life and student achievements.'
+                'Dilaw',
+                'A cinematic interpretation of love and happiness through creative storytelling, visuals, and emotional performances.'
             )">
 
             <img
-                src="{{ asset('img/thumb2.jpg') }}">
+                src="{{ asset('img/thumb2.png') }}">
 
             <div class="video-overlay">
 
@@ -1477,7 +1565,7 @@ NETFLIX SHOWCASE
 
             <h5>
 
-                Campus Documentary
+                Dilaw
 
             </h5>
 
@@ -1489,12 +1577,12 @@ NETFLIX SHOWCASE
 
             onclick="changeVideo(
                 '{{ asset('videos/project3.mp4') }}',
-                'Creative Short Film',
-                'Student-produced short film with cinematic storytelling.'
+                'Sining',
+                'A romantic visual storytelling project combining music, acting, and artistic direction.'
             )">
 
             <img
-                src="{{ asset('img/thumb3.jpg') }}">
+                src="{{ asset('img/thumb3.png') }}">
 
             <div class="video-overlay">
 
@@ -1504,7 +1592,7 @@ NETFLIX SHOWCASE
 
             <h5>
 
-                Creative Short Film
+                Sining
 
             </h5>
 
@@ -1516,12 +1604,12 @@ NETFLIX SHOWCASE
 
             onclick="changeVideo(
                 '{{ asset('videos/project4.mp4') }}',
-                'Commercial Advertisement',
-                'A commercial advertisement created by Multimedia students.'
+                'I’ll Never Go',
+                'A heartfelt music video interpretation portraying love, memories, and emotions through cinematic storytelling and creative editing.'
             )">
 
             <img
-                src="{{ asset('img/thumb4.jpg') }}">
+                src="{{ asset('img/thumb4.png') }}">
 
             <div class="video-overlay">
 
@@ -1531,12 +1619,170 @@ NETFLIX SHOWCASE
 
             <h5>
 
-                Commercial Advertisement
+                I’ll Never Go
 
             </h5>
-
         </div>
 
+        <!-- VIDEO 5 -->
+
+        <div class="video-card"
+
+            onclick="changeVideo(
+                '{{ asset('videos/project5.mp4') }}',
+                'Jopay',
+                'A creative music video interpretation showcasing youthful emotions, storytelling, and cinematic video production.'
+            )">
+
+            <img
+                src="{{ asset('img/thumb5.png') }}">
+
+            <div class="video-overlay">
+
+                ▶
+
+            </div>
+
+            <h5>
+
+                Jopay
+
+            </h5>
+        </div>
+        <!-- VIDEO 6 -->
+
+        <div class="video-card"
+
+            onclick="changeVideo(
+                '{{ asset('videos/project6.mp4') }}',
+                'Multo',
+                'A cinematic music video interpretation portraying emotions, memories, and storytelling through creative visuals and editing.'
+            )">
+
+            <img
+                src="{{ asset('img/thumb6.png') }}">
+
+            <div class="video-overlay">
+
+                ▶
+
+            </div>
+
+            <h5>
+
+                Multo
+
+            </h5>
+        </div>
+        <!-- VIDEO 7 -->
+
+        <div class="video-card"
+
+            onclick="changeVideo(
+                '{{ asset('videos/project7.mp4') }}',
+                'Palagi',
+                'A heartfelt music video interpretation showcasing love, emotions, and meaningful storytelling through cinematic visuals.'
+            )">
+
+            <img
+                src="{{ asset('img/thumb7.png') }}">
+
+            <div class="video-overlay">
+
+                ▶
+
+            </div>
+
+            <h5>
+
+                Palagi
+
+            </h5>
+        </div>
+        <!-- VIDEO 8 -->
+
+        <div class="video-card"
+
+            onclick="changeVideo(
+                '{{ asset('videos/project8.mp4') }}',
+                'Huling Sandali',
+                'A dramatic music video interpretation capturing emotions, memories, and heartfelt moments through cinematic storytelling.'
+            )">
+
+            <img
+                src="{{ asset('img/thumb8.png') }}">
+
+            <div class="video-overlay">
+
+                ▶
+
+            </div>
+
+            <h5>
+
+                Huling Sandali
+
+            </h5>
+        </div>
+
+        <!-- VIDEO 9 -->
+
+        <div class="video-card"
+
+            onclick="changeVideo(
+                '{{ asset('videos/project9.mp4') }}',
+                'Ang Huling El Bimbo',
+                'A nostalgic music video interpretation portraying memories, emotions, and life stories through cinematic storytelling.'
+            )">
+
+            <img
+                src="{{ asset('img/thumb9.png') }}">
+
+            <div class="video-overlay">
+
+                ▶
+
+            </div>
+
+            <h5>
+
+                Ang Huling El Bimbo
+
+            </h5>
+        </div>
+        <!-- VIDEO 10 -->
+
+        <div class="video-card"
+
+            onclick="changeVideo(
+                '{{ asset('videos/project10.mp4') }}',
+                'Sa Susunod na Habang Buhay',
+                'A heartfelt music video interpretation portraying love, hope, and emotions through cinematic storytelling.'
+            )">
+
+            <img
+                src="{{ asset('img/thumb10.png') }}">
+
+            <div class="video-overlay">
+
+                ▶
+
+            </div>
+
+            <h5>
+
+                Sa Susunod na Habang Buhay
+
+            </h5>
+        </div>
+
+
+        <button class="scroll-btn right"
+        onclick="scrollVideos(400)">
+            ❯
+        </button>
+
+        </div>
     </div>
 
 </section>
@@ -1874,6 +2120,20 @@ function showImage(image)
     new bootstrap.Modal(
         document.getElementById('imageModal')
     ).show();
+}
+</script>
+<script>
+    function scrollVideos(amount)
+{
+    document
+    .getElementById("videoRow")
+    .scrollBy({
+
+        left: amount,
+
+        behavior:"smooth"
+
+    });
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
