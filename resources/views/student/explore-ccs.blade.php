@@ -1440,7 +1440,7 @@ NETFLIX SCROLL BUTTON
 
         <h2 class="section-title mt-3">
 
-            Netflix Style Video Showcase
+            BSIT Students Project Showcase
 
         </h2>
 
