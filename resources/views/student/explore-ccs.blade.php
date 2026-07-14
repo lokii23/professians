@@ -1,7 +1,8 @@
 @extends('layouts.student')
 
 @section('content')
-
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <style>
 
 body{
@@ -798,6 +799,10 @@ NETFLIX SCROLL BUTTON
     right:0;
 
 }
+/* ================================= */
+/* FACULTY */
+/* ================================= */
+
 /* ========================= */
 /* GALLERY */
 /* ========================= */
@@ -975,6 +980,145 @@ NETFLIX SCROLL BUTTON
     transform:rotate(90deg);
 }
 
+/* ===================================== */
+
+.footer-section{
+
+    background:rgba(255,255,255,.05);
+
+    backdrop-filter:blur(15px);
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+.footer-title{
+
+    color:white;
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+
+.footer-heading{
+
+    color:white;
+
+    font-size:20px;
+
+    margin-bottom:20px;
+
+}
+
+.footer-text{
+
+    color:#cbd5e1;
+
+    line-height:1.9;
+
+}
+
+.footer-line{
+
+    border-color:rgba(255,255,255,.1);
+
+    margin:40px 0 20px;
+
+}
+
+.footer-copy{
+
+    color:#94a3b8;
+
+}
+
+/* SOCIAL */
+
+.social-icons{
+
+    margin-top:25px;
+
+}
+
+.social-icons a{
+
+    width:50px;
+
+    height:50px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    border-radius:50%;
+
+    margin-right:10px;
+
+    transition:.35s;
+
+    text-decoration:none;
+
+}
+
+.social-icons a:hover{
+
+    transform:translateY(-6px);
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+#topBtn{
+
+    position:fixed;
+
+    right:30px;
+
+    bottom:30px;
+
+    width:55px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        #ff0055,
+        #2563eb
+    );
+
+    color:white;
+
+    font-size:22px;
+
+    display:none;
+
+    z-index:999;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+
+    transition:.3s;
+
+}
+
+#topBtn:hover{
+
+    transform:translateY(-5px);
+
+}
 </style>
 
 <div class="container py-4">
@@ -1103,7 +1247,7 @@ NETFLIX SCROLL BUTTON
 
                             <h2>
 
-                                500+
+                                200+
 
                             </h2>
 
@@ -1123,7 +1267,7 @@ NETFLIX SCROLL BUTTON
 
                             <h2>
 
-                                20+
+                                5
 
                             </h2>
 
@@ -1143,7 +1287,7 @@ NETFLIX SCROLL BUTTON
 
                             <h2>
 
-                                10+
+                                4
 
                             </h2>
 
@@ -1380,6 +1524,8 @@ NETFLIX SCROLL BUTTON
                                     <li>Database Systems</li>
 
                                     <li>Mobile Development</li>
+                                    <li>Video Editing</li>
+                                    <li>Graphic Design</li>
 
                                 </ul>
 
@@ -1406,6 +1552,8 @@ NETFLIX SCROLL BUTTON
                                     <li>Database Administrator</li>
 
                                     <li>Cybersecurity Specialist</li>
+                                    <li>Video Editor</li>
+                                    <li>Graphic Designer</li>
 
                                 </ul>
 
@@ -1840,12 +1988,33 @@ NETFLIX SCROLL BUTTON
                      onclick="openGallery(this.src)">
             </div>
 
+            <div class="col-lg-4 col-md-6">
+                <img src="{{ asset('img/g7.jpg') }}"
+                     class="gallery-img"
+                     onclick="openGallery(this.src)">
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <img src="{{ asset('img/g8.jpg') }}"
+                     class="gallery-img"
+                     onclick="openGallery(this.src)">
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <img src="{{ asset('img/g9.jpg') }}"
+                     class="gallery-img"
+                     onclick="openGallery(this.src)">
+            </div>
+
         </div>
 
     </div>
 
 </section>
 
+<!-- ================================= -->
+<!-- FACULTY MEMBERS -->
+<!-- ================================= -->
 <!-- FACULTY -->
 
 
@@ -2041,12 +2210,127 @@ NETFLIX SCROLL BUTTON
     </div>
 
 </div>
+<!-- ================================= -->
+<!-- FOOTER -->
+<!-- ================================= -->
 
+<footer class="footer-section mt-5">
 
+    <div class="container py-5">
+
+        <div class="row">
+
+            <!-- LEFT -->
+
+            <div class="col-lg-4">
+
+                <h3 class="footer-title">
+
+                    College of Computer Studies
+
+                </h3>
+
+                <p class="footer-text">
+
+                    Developing future-ready IT professionals through
+                    innovation, technology, and excellence.
+
+                </p>
+
+                <div class="social-icons">
+
+                    <a href="https://www.facebook.com/PAPCCS2022/" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+
+                    <a href="https://www.youtube.com/watch?v=9t9GN67I3cY" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- CONTACT -->
+
+            <div class="col-lg-4">
+
+                <h4 class="footer-heading">
+
+                    Contact Information
+
+                </h4>
+
+                <p class="footer-text">
+
+                    📍 Professional Academy of the Philippines
+
+                </p>
+
+                <p class="footer-text">
+
+                    📞 +63 912 345 6789
+
+                </p>
+
+                <p class="footer-text">
+
+                    📧 ccs@pap.edu.ph
+
+                </p>
+
+            </div>
+
+            <!-- MAP -->
+
+            <div class="col-lg-4">
+
+                <h4 class="footer-heading">
+
+                    Find Us
+
+                </h4>
+
+                <iframe
+
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d888.3671516343499!2d123.75426736953429!3d10.204128419262156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a97853a1ef0a53%3A0x33c142d07a44658a!2sProfessional%20Academy%20of%20the%20Philippines!5e1!3m2!1sen!2sph!4v1784009200580!5m2!1sen!2sph"
+
+                    width="100%"
+
+                    height="180"
+
+                    style="border:0;border-radius:18px"
+
+                    loading="lazy">
+
+                </iframe>
+
+            </div>
+
+        </div>
+
+        <hr class="footer-line">
+
+        <div class="text-center footer-copy">
+
+            © 2026 College of Computer Studies • Professional Academy of the Philippines
+
+        </div>
+
+    </div>
+
+</footer>
+<button id="topBtn">
+
+    <i class="fas fa-chevron-up"></i>
+
+</button>
 
 </div>
 {{-- last part --}}
 
+
+<!--MODAL -->
 <div class="modal fade"
      id="galleryModal"
      tabindex="-1">
@@ -2134,6 +2418,35 @@ function showImage(image)
         behavior:"smooth"
 
     });
+}
+</script>
+<script>
+    const topBtn = document.getElementById("topBtn");
+
+window.onscroll = function(){
+
+    if(document.documentElement.scrollTop > 300){
+
+        topBtn.style.display="block";
+
+    }else{
+
+        topBtn.style.display="none";
+
+    }
+
+}
+
+topBtn.onclick=function(){
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
