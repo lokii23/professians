@@ -457,9 +457,9 @@
                     Innovate • Create • Lead the Future of Technology
                 </p>
 
-                <a href="#"
+                <a href="{{ route('student.explore') }}"
                 class="btn hero-btn">
-                    Explore CCS
+                    Explore CCS →
                 </a>
 
             </div>

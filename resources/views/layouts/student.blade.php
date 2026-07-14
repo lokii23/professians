@@ -438,13 +438,6 @@ body{
             aria-disabled="true">
                 <i>📩 Cyber-Chat</i>
             </a>
-            
-        <a href="{{ route('student.faculty') }}"
-        class="{{ request()->routeIs('student.faculty') ? 'active-link' : '' }}">
-
-            👨‍🏫 CCS Faculty
-
-        </a>
     </div>
 
     <!-- LOGOUT -->

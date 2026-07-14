@@ -189,6 +189,10 @@ Route::middleware(['auth', 'admin'])
         )->name('admin.results.export');
 
     });
+
+Route::get('/explore-ccs', function () {
+    return view('student.explore-ccs');
+})->name('student.explore');
 /*
 |--------------------------------------------------------------------------
 | AUTH ROUTES (Laravel Breeze)
