@@ -47,9 +47,9 @@
 
             <div class="question-content">
 
-                <h5 class="question-text">
-                    {{ $q->question }}
-                </h5>
+                <div class="question-text">
+                    <pre class="question-code">{{ $q->question }}</pre>
+                </div>
 
                 @if($q->question_type == 'multiple_choice')
 
@@ -284,6 +284,30 @@
 <!-- ========================= -->
 
 <style>
+.question-code{
+
+    background:#0f172a;
+
+    color:#f8fafc;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    font-family:Consolas, monospace;
+
+    font-size:17px;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+
+    margin:0;
+
+    border-left:5px solid #7c3aed;
+
+}
+
     .timer-box{
 
     position:sticky;
@@ -758,18 +782,20 @@ document.getElementById('submitBtn').addEventListener('click', function () {
 </script>
 <script>
 
-    document.getElementById('confirmSubmit').addEventListener('click', function () {
+    document.getElementById('confirmSubmit').addEventListener('click', function(){
 
-    this.disabled = true;
+        this.disabled = true;
 
-    this.innerHTML = `
-        <span class="spinner-border spinner-border-sm"></span>
-        Submitting...
-    `;
+        this.innerHTML = `
+            <span class="spinner-border spinner-border-sm"></span>
+            Submitting...
+        `;
 
-    document.getElementById('examForm').submit();
+        localStorage.removeItem(storageKey);
 
-});
+        document.getElementById('examForm').submit();
+
+    });
 
 </script>
 <script>
@@ -803,32 +829,46 @@ document.querySelectorAll('input[type="radio"]').forEach(function(radio){
 </script>
 <script>
 
-    let duration = {{ $exam->duration }} * 60;
+    const storageKey = "exam_end_time_{{ auth()->id() }}_{{ $exam->id }}";
 
-    let timer = duration;
+    // Get saved end time
+    let endTime = localStorage.getItem(storageKey);
 
-    let display = document.getElementById('timer');
+    // First time opening exam
+    if (!endTime) {
+
+        endTime = Date.now() + ({{ $exam->duration }} * 60 * 1000);
+
+        localStorage.setItem(storageKey, endTime);
+
+    }
 
     let countdown = setInterval(function(){
 
-        let minutes = Math.floor(timer / 60);
-        let seconds = timer % 60;
+        let remaining = Math.floor((endTime - Date.now()) / 1000);
 
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
-
-        display.textContent = minutes + ":" + seconds;
-
-        timer--;
-
-        if(timer < 0){
+        if(remaining <= 0){
 
             clearInterval(countdown);
+
+            localStorage.removeItem(storageKey);
 
             alert("Time is up! Exam will now submit.");
 
             document.getElementById('examForm').submit();
+
+            return;
+
         }
+
+        let minutes = Math.floor(remaining / 60);
+        let seconds = remaining % 60;
+
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        document.getElementById('timer').innerHTML =
+            minutes + ":" + seconds;
 
     },1000);
 

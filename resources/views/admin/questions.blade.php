@@ -56,7 +56,7 @@
                 <div class="w-75">
 
                     <h5 class="fw-bold mb-2">
-                        {{ $question->question }}
+                        {!! nl2br(e($question->question)) !!}
                     </h5>
 
                     @if($question->question_type == 'multiple_choice')
