@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Exam;
 use App\Models\Result;
 use App\Models\Question;
 use App\Models\User;
 use App\Models\Answer;
+
 
 class ExamController extends Controller
 {
@@ -178,16 +179,38 @@ class ExamController extends Controller
             );
         }
 
-        // CHECK IF ALL QUESTIONS ANSWERED
-        if (
-            !$request->has('answers') ||
-            count($request->answers) < $questions->count()
-        ) {
+        // CHECK IF ALL QUESTIONS ARE ANSWERED
 
-            return back()->with(
-                'error',
-                'Please answer all questions.'
-            );
+        foreach ($questions as $question) {
+
+            if ($question->question_type == 'multiple_choice') {
+
+                if (
+                    !isset($request->answers[$question->id])
+                ) {
+
+                    return back()->with(
+                        'error',
+                        'Please answer all questions.'
+                    );
+
+                }
+
+            } else {
+
+                if (
+                    !$request->hasFile("uploads.$question->id")
+                ) {
+
+                    return back()->with(
+                        'error',
+                        'Please upload all required files.'
+                    );
+
+                }
+
+            }
+
         }
 
         $score = 0;
@@ -201,34 +224,79 @@ class ExamController extends Controller
 
         ]);
 
-        foreach ($request->answers as $question_id => $answer) {
+        foreach ($questions as $question) {
 
-            $question = Question::find($question_id);
+            /*
+            |--------------------------------------------------------------------------
+            | MULTIPLE CHOICE
+            |--------------------------------------------------------------------------
+            */
 
-            if (!$question) {
-                continue;
+            if ($question->question_type == 'multiple_choice') {
+
+                $answer = $request->answers[$question->id] ?? null;
+
+                $isCorrect = false;
+
+                if ($answer == $question->correct_answer) {
+
+                    $score++;
+                    $isCorrect = true;
+
+                }
+
+                Answer::create([
+
+                    'result_id' => $result->id,
+
+                    'question_id' => $question->id,
+
+                    'student_answer' => $answer,
+
+                    'upload_path' => null,
+
+                    'is_correct' => $isCorrect
+
+                ]);
+
             }
 
-            $isCorrect = false;
+            /*
+            |--------------------------------------------------------------------------
+            | FILE UPLOAD
+            |--------------------------------------------------------------------------
+            */
 
-            if (
-                $question->correct_answer == $answer
-            ) {
+            else {
 
-                $score++;
-                $isCorrect = true;
+                $path = null;
+
+                if ($request->hasFile("uploads.$question->id")) {
+
+                    $path = $request
+                        ->file("uploads.$question->id")
+                        ->store('student_uploads', 'public');
+
+                }
+
+                Answer::create([
+
+                    'result_id' => $result->id,
+
+                    'question_id' => $question->id,
+
+                    'student_answer' => null,
+
+                    'upload_path' => $path,
+
+                    'is_correct' => false
+
+                ]);
+
             }
 
-            // SAVE ANSWER
-            Answer::create([
-
-                'result_id' => $result->id,
-                'question_id' => $question_id,
-                'student_answer' => $answer,
-                'is_correct' => $isCorrect
-
-            ]);
         }
+
 
         // UPDATE FINAL SCORE
         $result->update([
@@ -351,11 +419,26 @@ class ExamController extends Controller
         Question::create([
             'exam_id' => $request->exam_id,
             'question' => $request->question,
-            'option_a' => $request->option_a,
-            'option_b' => $request->option_b,
-            'option_c' => $request->option_c,
-            'option_d' => $request->option_d,
-            'correct_answer' => $request->correct_answer,
+            'question_type' => $request->question_type,
+            'option_a' => $request->question_type == 'multiple_choice'
+                    ? $request->option_a
+                    : null,
+
+            'option_b' => $request->question_type == 'multiple_choice'
+                            ? $request->option_b
+                            : null,
+
+            'option_c' => $request->question_type == 'multiple_choice'
+                            ? $request->option_c
+                            : null,
+
+            'option_d' => $request->question_type == 'multiple_choice'
+                            ? $request->option_d
+                            : null,
+
+            'correct_answer' => $request->question_type == 'multiple_choice'
+                                    ? $request->correct_answer
+                                    : null,
         ]);
 
         return redirect()
@@ -401,6 +484,7 @@ class ExamController extends Controller
             compact('result')
         );
     }
+    
     public function recheckAnswer(Request $request, $id)
     {
         $answer = Answer::findOrFail($id);
@@ -484,64 +568,83 @@ class ExamController extends Controller
     }
 
     public function copyExam($id)
-{
-    $exam = Exam::findOrFail($id);
+    {
+        $exam = Exam::findOrFail($id);
 
-    // Create duplicate exam
-    $newExam = Exam::create([
+        // Create duplicate exam
+        $newExam = Exam::create([
 
-        'title' => $exam->title . ' (Copy)',
+            'title' => $exam->title . ' (Copy)',
 
-        'description' => $exam->description,
+            'description' => $exam->description,
 
-        'duration' => $exam->duration,
+            'duration' => $exam->duration,
 
-        'type' => $exam->type,
+            'type' => $exam->type,
 
-        'passkey' => $exam->passkey,
+            'passkey' => $exam->passkey,
 
-        'user_id' => auth()->id(),
+            'user_id' => auth()->id(),
 
-        'is_active' => false,
+            'is_active' => false,
 
-        'show_result' => $exam->show_result,
+            'show_result' => $exam->show_result,
 
-        'shuffle_questions' => $exam->shuffle_questions,
-
-    ]);
-
-    // Copy questions
-    $questions = Question::where(
-        'exam_id',
-        $exam->id
-    )->get();
-
-    foreach ($questions as $question) {
-
-        Question::create([
-
-            'exam_id' => $newExam->id,
-
-            'question' => $question->question,
-
-            'option_a' => $question->option_a,
-
-            'option_b' => $question->option_b,
-
-            'option_c' => $question->option_c,
-
-            'option_d' => $question->option_d,
-
-            'correct_answer' => $question->correct_answer,
+            'shuffle_questions' => $exam->shuffle_questions,
 
         ]);
+
+        // Copy questions
+        $questions = Question::where(
+            'exam_id',
+            $exam->id
+        )->get();
+
+        foreach ($questions as $question) {
+
+            Question::create([
+
+                'exam_id' => $newExam->id,
+
+                'question' => $question->question,
+                'question_type' => $question->question_type,
+
+                'option_a' => $question->option_a,
+
+                'option_b' => $question->option_b,
+
+                'option_c' => $question->option_c,
+
+                'option_d' => $question->option_d,
+
+                'correct_answer' => $question->correct_answer,
+
+            ]);
+        }
+
+        return redirect()
+            ->route('admin.questions', $newExam->id)
+            ->with(
+                'success',
+                'Exam copied successfully. You can now edit it.'
+            );
     }
 
-    return redirect()
-        ->route('admin.questions', $newExam->id)
-        ->with(
+    public function updateScore(Request $request, $id)
+    {
+        $request->validate([
+            'score' => 'required|numeric|min:0'
+        ]);
+
+        $result = Result::findOrFail($id);
+
+        $result->score = $request->score;
+
+        $result->save();
+
+        return back()->with(
             'success',
-            'Exam copied successfully. You can now edit it.'
+            'Student score updated successfully.'
         );
-}
+    }
 }

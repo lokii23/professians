@@ -188,6 +188,16 @@ Route::middleware(['auth', 'admin'])
             [AdminController::class,'exportResults']
         )->name('admin.results.export');
 
+        Route::post(
+            '/answer/{id}/recheck',
+            [ExamController::class, 'recheckAnswer']
+        )->name('admin.recheck.answer');
+
+        Route::put(
+    '/admin/result/{id}/score',
+    [ExamController::class, 'updateScore']
+)->name('admin.result.updateScore');
+
     });
 
 Route::get('/explore-ccs', function () {

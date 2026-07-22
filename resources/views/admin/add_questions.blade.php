@@ -47,156 +47,205 @@
         <!-- BODY -->
         <div class="card-body p-4">
 
-            <form method="POST"
-                  action="{{ route('admin.store-question') }}">
-
+            <form method="POST" action="{{ route('admin.store-question') }}">
                 @csrf
 
                 <input type="hidden"
-                       name="exam_id"
-                       value="{{ $exam->id }}">
+                    name="exam_id"
+                    value="{{ $exam->id }}">
 
                 <!-- QUESTION -->
-                <div class="mb-4 text-white" >
+                <div class="mb-4">
 
                     <label class="form-label text-white fw-semibold">
                         Question
                     </label>
 
-                    <textarea name="question"
-                              rows="4"
-                              class="form-control border-0 shadow-sm rounded-3"
-                              style="
-                                  background:#1e293b;
-                                  color:white;
-                              "
-                              placeholder="Enter your question here..."
-                              required></textarea>
+                    <textarea
+                        name="question"
+                        rows="4"
+                        class="form-control border-0 shadow-sm rounded-3"
+                        style="background:#1e293b;color:white;"
+                        placeholder="Enter your question..."
+                        required></textarea>
 
                 </div>
 
-                <!-- OPTIONS -->
-                <div class="row">
 
-                    <!-- OPTION A -->
-                    <div class="col-md-6 mb-3">
+                <!-- QUESTION TYPE -->
 
-                        <label class="form-label text-info fw-semibold">
-                            Option A
-                        </label>
-
-                        <input type="text"
-                               name="option_a"
-                               class="form-control border-0 shadow-sm rounded-3"
-                               style="
-                                   background:#1e293b;
-                                   color:white;
-                               "
-                               placeholder="Enter option A"
-                               required>
-
-                    </div>
-
-                    <!-- OPTION B -->
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label text-info fw-semibold">
-                            Option B
-                        </label>
-
-                        <input type="text"
-                               name="option_b"
-                               class="form-control border-0 shadow-sm rounded-3"
-                               style="
-                                   background:#1e293b;
-                                   color:white;
-                               "
-                               placeholder="Enter option B"
-                               required>
-
-                    </div>
-
-                    <!-- OPTION C -->
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label text-info fw-semibold">
-                            Option C
-                        </label>
-
-                        <input type="text"
-                               name="option_c"
-                               class="form-control border-0 shadow-sm rounded-3"
-                               style="
-                                   background:#1e293b;
-                                   color:white;
-                               "
-                               placeholder="Enter option C"
-                               required>
-
-                    </div>
-
-                    <!-- OPTION D -->
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label text-info fw-semibold">
-                            Option D
-                        </label>
-
-                        <input type="text"
-                               name="option_d"
-                               class="form-control border-0 shadow-sm rounded-3"
-                               style="
-                                   background:#1e293b;
-                                   color:white;
-                               "
-                               placeholder="Enter option D"
-                               required>
-
-                    </div>
-
-                </div>
-
-                <!-- ANSWER -->
                 <div class="mb-4">
 
                     <label class="form-label text-white fw-semibold">
-                        Correct Answer
+
+                        Question Type
+
                     </label>
 
-                    <select name="correct_answer"
-                            class="form-select border-0 shadow-sm rounded-3"
-                            style="
-                                background:#1e293b;
-                                color:white;
-                            "
-                            required>
+                    <select
+                        name="question_type"
+                        id="questionType"
+                        class="form-select border-0 shadow-sm rounded-3"
+                        style="background:#1e293b;color:white;">
 
-                        <option value="">
-                            Select Correct Answer
+                        <option value="multiple_choice">
+
+                            📝 Multiple Choice
+
                         </option>
 
+                        <option value="file_upload">
+
+                            📷 File Upload
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- MULTIPLE CHOICE FIELDS -->
+
+                <div id="multipleChoiceFields">
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label text-info">
+                                Option A
+                            </label>
+
+                            <input
+                                type="text"
+                                name="option_a"
+                                class="form-control border-0"
+                                style="background:#1e293b;color:white;"
+                                placeholder="Option A">
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label text-info">
+                                Option B
+                            </label>
+
+                            <input
+                                type="text"
+                                name="option_b"
+                                class="form-control border-0"
+                                style="background:#1e293b;color:white;"
+                                placeholder="Option B">
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label text-info">
+                                Option C
+                            </label>
+
+                            <input
+                                type="text"
+                                name="option_c"
+                                class="form-control border-0"
+                                style="background:#1e293b;color:white;"
+                                placeholder="Option C">
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label text-info">
+                                Option D
+                            </label>
+
+                            <input
+                                type="text"
+                                name="option_d"
+                                class="form-control border-0"
+                                style="background:#1e293b;color:white;"
+                                placeholder="Option D">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FILE UPLOAD NOTICE -->
+
+                <div id="uploadNotice"
+                    class="alert alert-info"
+                    style="display:none;">
+
+                    <h6 class="fw-bold">
+
+                        📷 File Upload Question
+
+                    </h6>
+
+                    Students will upload
+
+                    <strong>ONE IMAGE</strong>
+
+                    as their answer.
+
+                    <hr>
+
+                    Accepted:
+
+                    JPG
+
+                    JPEG
+
+                    PNG
+
+                </div>
+
+
+                <!-- CORRECT ANSWER -->
+
+                <div
+                    class="mb-4"
+                    id="correctAnswerField">
+
+                    <label class="form-label text-white">
+
+                        Correct Answer
+
+                    </label>
+
+                    <select
+                        name="correct_answer"
+                        class="form-select border-0"
+                        style="background:#1e293b;color:white;">
+
+                        <option value="">Select Correct Answer</option>
+
                         <option value="A">A</option>
+
                         <option value="B">B</option>
+
                         <option value="C">C</option>
+
                         <option value="D">D</option>
 
                     </select>
 
                 </div>
 
-                <!-- BUTTON -->
+
+                <!-- SAVE BUTTON (KEEP THIS OUTSIDE OF EVERYTHING) -->
+
                 <div class="d-flex justify-content-end">
 
-                    <button class="btn px-4 py-2 rounded-pill fw-semibold text-white"
-                            style="
-                                background: linear-gradient(
-                                    135deg,
-                                    #2563eb,
-                                    #1d4ed8
-                                );
-                                border:none;
-                                box-shadow:0 0 20px rgba(37,99,235,.4);
-                            ">
+                    <button
+                        class="btn px-4 py-2 rounded-pill text-white"
+                        style="background:#2563eb;">
 
                         💾 Save Question
 
@@ -211,5 +260,41 @@
     </div>
 
 </div>
+<script>
 
+const questionType = document.getElementById('questionType');
+
+const mcFields = document.getElementById('multipleChoiceFields');
+
+const answerField = document.getElementById('correctAnswerField');
+
+const uploadNotice = document.getElementById('uploadNotice');
+
+function toggleQuestionType() {
+
+    if (questionType.value === "file_upload") {
+
+        mcFields.style.display = "none";
+
+        answerField.style.display = "none";
+
+        uploadNotice.style.display = "block";
+
+    } else {
+
+        mcFields.style.display = "block";
+
+        answerField.style.display = "block";
+
+        uploadNotice.style.display = "none";
+
+    }
+
+}
+
+questionType.addEventListener("change", toggleQuestionType);
+
+toggleQuestionType();
+
+</script>
 @endsection

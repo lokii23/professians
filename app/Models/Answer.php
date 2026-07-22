@@ -10,6 +10,7 @@ class Answer extends Model
         'result_id',
         'question_id',
         'student_answer',
+        'upload_path',
         'is_correct'
     ];
 

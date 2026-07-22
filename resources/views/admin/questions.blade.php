@@ -59,6 +59,24 @@
                         {{ $question->question }}
                     </h5>
 
+                    @if($question->question_type == 'multiple_choice')
+
+                        <span class="badge bg-primary">
+
+                            📝 Multiple Choice
+
+                        </span>
+
+                    @else
+
+                        <span class="badge bg-warning text-dark">
+
+                            📷 File Upload
+
+                        </span>
+
+                    @endif
+
                 </div>
 
                 <div class="d-flex gap-2">
@@ -68,6 +86,7 @@
                         class="btn btn-sm btn-warning editBtn"
 
                         data-id="{{ $question->id }}"
+                        data-type="{{ $question->question_type }}"
                         data-question="{{ $question->question }}"
                         data-a="{{ $question->option_a }}"
                         data-b="{{ $question->option_b }}"
@@ -93,73 +112,71 @@
 
             </div>
 
-           <div class="mb-3">
+            @if($question->question_type == 'multiple_choice')
 
-                <!-- A -->
-                <div class="choice-option border rounded px-3 py-2 mb-2
-                    {{ $question->correct_answer == 'A' ? 'border-success bg-success-subtle text-success fw-bold' : 'bg-light' }}"
+                <div class="mb-3">
 
-                    style="cursor:pointer;"
+                    <!-- A -->
+                    <div class="choice-option border rounded px-3 py-2 mb-2
+                        {{ $question->correct_answer == 'A' ? 'border-success bg-success-subtle text-success fw-bold' : 'bg-light' }}"
+                        style="cursor:pointer;"
+                        onclick="setCorrectAnswer({{ $question->id }},'A')">
 
-                    onclick="setCorrectAnswer(
-                        {{ $question->id }},
-                        'A'
-                    )">
+                        <strong>A.</strong>
+                        {{ $question->option_a }}
 
-                    <strong>A.</strong>
-                    {{ $question->option_a }}
+                    </div>
 
-                </div>
+                    <!-- B -->
+                    <div class="choice-option border rounded px-3 py-2 mb-2
+                        {{ $question->correct_answer == 'B' ? 'border-success bg-success-subtle text-success fw-bold' : 'bg-light' }}"
+                        style="cursor:pointer;"
+                        onclick="setCorrectAnswer({{ $question->id }},'B')">
 
-                <!-- B -->
-                <div class="choice-option border rounded px-3 py-2 mb-2
-                    {{ $question->correct_answer == 'B' ? 'border-success bg-success-subtle text-success fw-bold' : 'bg-light' }}"
+                        <strong>B.</strong>
+                        {{ $question->option_b }}
 
-                    style="cursor:pointer;"
+                    </div>
 
-                    onclick="setCorrectAnswer(
-                        {{ $question->id }},
-                        'B'
-                    )">
+                    <!-- C -->
+                    <div class="choice-option border rounded px-3 py-2 mb-2
+                        {{ $question->correct_answer == 'C' ? 'border-success bg-success-subtle text-success fw-bold' : 'bg-light' }}"
+                        style="cursor:pointer;"
+                        onclick="setCorrectAnswer({{ $question->id }},'C')">
 
-                    <strong>B.</strong>
-                    {{ $question->option_b }}
+                        <strong>C.</strong>
+                        {{ $question->option_c }}
 
-                </div>
+                    </div>
 
-                <!-- C -->
-                <div class="choice-option border rounded px-3 py-2 mb-2
-                    {{ $question->correct_answer == 'C' ? 'border-success bg-success-subtle text-success fw-bold' : 'bg-light' }}"
+                    <!-- D -->
+                    <div class="choice-option border rounded px-3 py-2
+                        {{ $question->correct_answer == 'D' ? 'border-success bg-success-subtle text-success fw-bold' : 'bg-light' }}"
+                        style="cursor:pointer;"
+                        onclick="setCorrectAnswer({{ $question->id }},'D')">
 
-                    style="cursor:pointer;"
+                        <strong>D.</strong>
+                        {{ $question->option_d }}
 
-                    onclick="setCorrectAnswer(
-                        {{ $question->id }},
-                        'C'
-                    )">
-
-                    <strong>C.</strong>
-                    {{ $question->option_c }}
-
-                </div>
-
-                <!-- D -->
-                <div class="choice-option border rounded px-3 py-2
-                    {{ $question->correct_answer == 'D' ? 'border-success bg-success-subtle text-success fw-bold' : 'bg-light' }}"
-
-                    style="cursor:pointer;"
-
-                    onclick="setCorrectAnswer(
-                        {{ $question->id }},
-                        'D'
-                    )">
-
-                    <strong>D.</strong>
-                    {{ $question->option_d }}
+                    </div>
 
                 </div>
 
-            </div>
+                @else
+
+                <div class="alert alert-info mb-0">
+
+                    <h6 class="fw-bold">
+
+                        📷 File Upload Question
+
+                    </h6>
+
+                    Students will upload an image instead of selecting A, B, C, or D.
+
+                </div>
+
+                @endif
 
         </div>
 
@@ -177,20 +194,23 @@ document.querySelectorAll('.editBtn').forEach(btn => {
         document.getElementById('editQuestion').value =
             this.dataset.question;
 
-        document.getElementById('editA').value =
-            this.dataset.a;
-
-        document.getElementById('editB').value =
-            this.dataset.b;
-
-        document.getElementById('editC').value =
-            this.dataset.c;
-
-        document.getElementById('editD').value =
-            this.dataset.d;
-
         document.getElementById('editForm').action =
             "/admin/questions/update/" + this.dataset.id;
+
+        if(this.dataset.type === 'multiple_choice'){
+
+            document.getElementById('choicesArea').style.display = "block";
+
+            document.getElementById('editA').value = this.dataset.a;
+            document.getElementById('editB').value = this.dataset.b;
+            document.getElementById('editC').value = this.dataset.c;
+            document.getElementById('editD').value = this.dataset.d;
+
+        }else{
+
+            document.getElementById('choicesArea').style.display = "none";
+
+        }
 
         new bootstrap.Modal(
             document.getElementById('editModal')
@@ -279,29 +299,33 @@ function setCorrectAnswer(questionId, answer)
                         id="editQuestion"
                         class="form-control mb-3"></textarea>
 
-                    <label>Option A</label>
-                    <input type="text"
-                        name="option_a"
-                        id="editA"
-                        class="form-control mb-2">
+                    <div id="choicesArea">
 
-                    <label>Option B</label>
-                    <input type="text"
-                        name="option_b"
-                        id="editB"
-                        class="form-control mb-2">
+                        <label>Option A</label>
+                        <input type="text"
+                            name="option_a"
+                            id="editA"
+                            class="form-control mb-2">
 
-                    <label>Option C</label>
-                    <input type="text"
-                        name="option_c"
-                        id="editC"
-                        class="form-control mb-2">
+                        <label>Option B</label>
+                        <input type="text"
+                            name="option_b"
+                            id="editB"
+                            class="form-control mb-2">
 
-                    <label>Option D</label>
-                    <input type="text"
-                        name="option_d"
-                        id="editD"
-                        class="form-control mb-3">
+                        <label>Option C</label>
+                        <input type="text"
+                            name="option_c"
+                            id="editC"
+                            class="form-control mb-2">
+
+                        <label>Option D</label>
+                        <input type="text"
+                            name="option_d"
+                            id="editD"
+                            class="form-control mb-3">
+
+                    </div>
 
                 </div>
 

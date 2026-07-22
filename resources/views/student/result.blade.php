@@ -473,14 +473,46 @@
 
                         </div>
 
+                        @php
+
+                        $mcQuestions = $result->exam->questions
+                            ->where('question_type','multiple_choice')
+                            ->count();
+
+                        $fileQuestions = $result->exam->questions
+                            ->where('question_type','file_upload')
+                            ->count();
+
+                        @endphp
+
                         <div class="score-text">
 
-                            {{ $result->score }}
+                            Multiple Choice Score:
+                            <strong>{{ $result->score }}</strong>
                             out of
-                            {{ $result->exam?->questions?->count() ?? 0 }}
-                            correct answers
+                            <strong>{{ $mcQuestions }}</strong>
 
                         </div>
+
+                        @if($fileQuestions > 0)
+
+                        <div class="mt-2 text-warning">
+
+                            📷
+                            {{ $fileQuestions }}
+                            File Upload Question(s)
+
+                            <br>
+
+                            <small>
+
+                                These answers are checked manually by your teacher.
+
+                            </small>
+
+                        </div>
+
+                        @endif
 
                         <a href="{{ route('student.result.view', $result->id) }}"
                            class="btn view-btn">

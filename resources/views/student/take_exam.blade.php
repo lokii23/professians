@@ -28,9 +28,7 @@
         <span id="timer"></span>
 
     </div>
-    <form method="POST" id="examForm"
-          action="{{ route('exam.submit') }}"
-          id="examForm">
+    <form method="POST" id="examForm" action="{{ route('exam.submit') }}" enctype="multipart/form-data">
 
         @csrf
 
@@ -53,15 +51,17 @@
                     {{ $q->question }}
                 </h5>
 
+                @if($q->question_type == 'multiple_choice')
+
                 <div class="options-wrapper">
 
                     <!-- OPTION A -->
                     <label class="option-box">
 
                         <input type="radio"
-                               name="answers[{{ $q->id }}]"
-                               value="A"
-                               required>
+                            name="answers[{{ $q->id }}]"
+                            value="A"
+                            required>
 
                         <span class="option-letter">
                             A
@@ -77,8 +77,8 @@
                     <label class="option-box">
 
                         <input type="radio"
-                               name="answers[{{ $q->id }}]"
-                               value="B">
+                            name="answers[{{ $q->id }}]"
+                            value="B">
 
                         <span class="option-letter">
                             B
@@ -94,8 +94,8 @@
                     <label class="option-box">
 
                         <input type="radio"
-                               name="answers[{{ $q->id }}]"
-                               value="C">
+                            name="answers[{{ $q->id }}]"
+                            value="C">
 
                         <span class="option-letter">
                             C
@@ -111,8 +111,8 @@
                     <label class="option-box">
 
                         <input type="radio"
-                               name="answers[{{ $q->id }}]"
-                               value="D">
+                            name="answers[{{ $q->id }}]"
+                            value="D">
 
                         <span class="option-letter">
                             D
@@ -125,6 +125,33 @@
                     </label>
 
                 </div>
+
+                @else
+
+                <div class="mt-4">
+
+                    <label class="form-label text-white fw-bold">
+
+                        Upload your answer
+
+                    </label>
+
+                    <input type="file"
+                        class="form-control"
+                        name="uploads[{{ $q->id }}]"
+                        accept="image/*"
+                        required>
+
+                    <small class="text-light">
+
+                        Allowed file: JPG, PNG, JPEG
+
+                    </small>
+
+                </div>
+
+                @endif
+
 
             </div>
 
@@ -674,38 +701,64 @@ body{
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+document.getElementById('submitBtn').addEventListener('click', function () {
 
-document.getElementById('submitBtn')
-.addEventListener('click', function () {
+    let unanswered = false;
 
-    let totalQuestions = @json(count($questions));
+    document.querySelectorAll('.question-card').forEach(function(card){
 
-    let answeredQuestions =
-        document.querySelectorAll(
-            'input[type="radio"]:checked'
-        ).length;
+        let radios = card.querySelectorAll('input[type="radio"]');
+        let file = card.querySelector('input[type="file"]');
 
-    if (answeredQuestions < totalQuestions) {
+        // Multiple Choice
+        if(radios.length > 0){
 
-        let warningModal = new bootstrap.Modal(
+            let checked = false;
+
+            radios.forEach(function(r){
+
+                if(r.checked){
+                    checked = true;
+                }
+
+            });
+
+            if(!checked){
+                unanswered = true;
+            }
+
+        }
+
+        // File Upload
+        if(file !== null){
+
+            if(file.files.length === 0){
+                unanswered = true;
+            }
+
+        }
+
+    });
+
+    if(unanswered){
+
+        new bootstrap.Modal(
             document.getElementById('warningModal')
-        );
-
-        warningModal.show();
+        ).show();
 
         return;
     }
 
-    let submitModal = new bootstrap.Modal(
+    new bootstrap.Modal(
         document.getElementById('submitModal')
-    );
-
-    submitModal.show();
+    ).show();
 
 });
 
-document.getElementById('confirmSubmit')
-.addEventListener('click', function () {
+</script>
+<script>
+
+    document.getElementById('confirmSubmit').addEventListener('click', function () {
 
     this.disabled = true;
 

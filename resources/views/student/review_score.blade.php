@@ -244,64 +244,121 @@
 
                     </div>
 
-                    @php
+                    @if($answer->question->question_type == 'multiple_choice')
 
-                        $options = [
+                        @php
 
-                            'A' => $answer->question->option_a,
-                            'B' => $answer->question->option_b,
-                            'C' => $answer->question->option_c,
-                            'D' => $answer->question->option_d,
+                            $options = [
 
-                        ];
+                                'A' => $answer->question->option_a,
+                                'B' => $answer->question->option_b,
+                                'C' => $answer->question->option_c,
+                                'D' => $answer->question->option_d,
 
-                    @endphp
+                            ];
 
-                    @foreach($options as $key => $value)
+                        @endphp
 
-                        <div class="
-                            option-box
+                        @foreach($options as $key => $value)
 
-                            @if($answer->question->correct_answer == $key)
-                                correct-answer
-                            @elseif($answer->student_answer == $key)
-                                wrong-answer
-                            @endif
-                        ">
+                            <div class="
+                                option-box
 
-                            <strong>
+                                @if($answer->question->correct_answer == $key)
+                                    correct-answer
+                                @elseif($answer->student_answer == $key)
+                                    wrong-answer
+                                @endif
+                            ">
 
-                                {{ $key }}.
+                                <strong>{{ $key }}.</strong>
 
-                            </strong>
+                                {{ $value }}
 
-                            {{ $value }}
+                                @if($answer->question->correct_answer == $key)
 
-                            @if($answer->question->correct_answer == $key)
+                                    <div class="badge-answer badge-correct">
 
-                                <div class="badge-answer badge-correct">
+                                        ✔ Correct Answer
 
-                                    Correct Answer
+                                    </div>
 
-                                </div>
+                                @elseif($answer->student_answer == $key)
 
-                            @elseif($answer->student_answer == $key)
+                                    <div class="badge-answer badge-wrong">
 
-                                <div class="badge-answer badge-wrong">
+                                        ✖ Your Answer
 
-                                    Your Answer
+                                    </div>
 
-                                </div>
+                                @endif
+
+                            </div>
+
+                        @endforeach
+
+                    @else
+
+                        <div class="text-white mb-3">
+
+                            <strong>📷 Uploaded Answer</strong>
+
+                        </div>
+
+                        @if($answer->upload_path)
+
+                            <a href="{{ asset('storage/'.$answer->upload_path) }}"
+                            target="_blank">
+
+                                <img
+                                    src="{{ asset('storage/'.$answer->upload_path) }}"
+                                    class="img-fluid rounded shadow"
+                                    style="
+                                        max-width:300px;
+                                        border-radius:15px;
+                                        transition:.3s;
+                                        cursor:pointer;
+                                    ">
+
+                            </a>
+
+                        @else
+
+                            <div class="alert alert-danger">
+
+                                No image uploaded.
+
+                            </div>
+
+                        @endif
+
+                        <div class="mt-3">
+
+                            @if($answer->is_correct)
+
+                                <span class="badge bg-success fs-6">
+
+                                    ✔ Checked Correct by Teacher
+
+                                </span>
+
+                            @else
+
+                                <span class="badge bg-warning text-dark fs-6">
+
+                                    ⏳ Waiting for Teacher Review
+
+                                </span>
 
                             @endif
 
                         </div>
 
-                    @endforeach
+                    @endif
 
                 </div>
 
-            @endforeach
+                @endforeach
 
         </div>
 
