@@ -22,7 +22,7 @@
 
         <p class="mb-0">
             Student:
-            <strong>{{ $result->user->name }}</strong>
+            <strong>{{ $result->user->first_name }} {{ $result->user->last_name }}</strong>
         </p>
 
         <div class="mt-3">
