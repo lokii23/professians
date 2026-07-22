@@ -1,7 +1,16 @@
 @extends('layouts.admin')
 
 @section('content')
+<div class="mb-3">
 
+    <a href="{{ route('admin.results', $result->exam_id) }}"
+       class="btn btn-secondary">
+
+        ← Back to Results
+
+    </a>
+
+</div>
 <div class="container py-4">
 
     <!-- HEADER -->

@@ -50,7 +50,16 @@
     }
 
 </style>
+<div class="mb-3">
 
+    <a href="{{ route('admin.exams') }}"
+       class="btn btn-secondary">
+
+        ← Back to Exams
+
+    </a>
+
+</div>
 <div class="card-modern p-3">
 
     <!-- HEADER -->
