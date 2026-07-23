@@ -177,14 +177,11 @@
 
                     @if($answer->upload_path)
 
-                        <a href="{{ asset('storage/'.$answer->upload_path) }}" target="_blank">
-
-                            <img
-                                src="{{ asset('storage/'.$answer->upload_path) }}"
-                                class="img-fluid rounded shadow"
-                                style="max-width:350px;cursor:pointer;">
-
-                        </a>
+                        <img
+                            src="{{ asset('storage/'.$answer->upload_path) }}"
+                            class="img-fluid rounded shadow previewImage"
+                            style="max-width:350px;cursor:pointer;"
+                            data-image="{{ asset('storage/'.$answer->upload_path) }}">
 
                     @else
 
@@ -245,4 +242,64 @@
 
 </div>
 
+
+<!-- IMAGE PREVIEW MODAL -->
+
+<div class="modal fade"
+     id="imagePreviewModal"
+     tabindex="-1">
+
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+
+        <div class="modal-content border-0 bg-dark">
+
+            <div class="modal-header border-0">
+
+                <h5 class="text-white">
+
+                    Student Uploaded Image
+
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body text-center">
+
+                <img
+                    id="modalPreviewImage"
+                    src=""
+                    class="img-fluid rounded">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.querySelectorAll('.previewImage').forEach(image => {
+
+    image.addEventListener('click', function(){
+
+        document.getElementById('modalPreviewImage').src =
+            this.dataset.image;
+
+        new bootstrap.Modal(
+            document.getElementById('imagePreviewModal')
+        ).show();
+
+    });
+
+});
+
+</script>
 @endsection
