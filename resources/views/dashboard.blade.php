@@ -316,7 +316,54 @@
 .video-content{
     max-width:600px;
 }
+.video-nav{
 
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:55px;
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,.45);
+
+    color:white;
+
+    font-size:26px;
+
+    backdrop-filter:blur(10px);
+
+    transition:.3s;
+
+    z-index:20;
+
+}
+
+.video-nav:hover{
+
+    background:#2563eb;
+
+    transform:translateY(-50%) scale(1.1);
+
+}
+
+.prev-btn{
+
+    left:20px;
+
+}
+
+.next-btn{
+
+    right:20px;
+
+}
 .hero-badge{
 
     display:inline-block;
@@ -424,47 +471,69 @@
     <!-- NEWS FEED -->
     <div class="position-relative mb-5">
 
-    <video
-        autoplay
-        muted
-        loop
-        class="w-100 rounded-4"
-        style="
-            height:500px;
-            object-fit:cover;
-            border:1px solid rgba(255,255,255,.08);
-        ">
+        <video
+            id="heroVideo"
+            autoplay
+            muted
+            loop
+            class="w-100 rounded-4"
+            style="
+                height:500px;
+                object-fit:cover;
+                border:1px solid rgba(255,255,255,.08);
+            ">
 
-        <source
-            src="{{ asset('videos/Vlog2.mp4') }}"
+            <source
+            id="videoSource"
+            src="{{ asset('videos/Vlog1.mp4') }}"
             type="video/mp4">
 
-    </video>
+            </video>
 
-        <div class="video-overlay">
+            <!-- Previous -->
+            <button
+                class="video-nav prev-btn"
+                onclick="previousVideo()">
 
-            <div class="video-content">
+                ❮
 
-                <span class="hero-badge">
-                    🎓 College of Computer Studies
-                </span>
+            </button>
 
-                <h1 class="hero-title">
-                    Welcome Professians!
-                </h1>
+            <!-- Next -->
+            <button
+                class="video-nav next-btn"
+                onclick="nextVideo()">
 
-                <p class="hero-subtitle">
-                    Innovate • Create • Lead the Future of Technology
-                </p>
+                ❯
 
-                <a href="{{ route('student.explore') }}"
-                class="btn hero-btn">
-                    Explore CCS →
-                </a>
+            </button>
+
+            <div class="video-overlay">
+
+                <div class="video-content">
+
+                    <span class="hero-badge">
+                        🎓 College of Computer Studies
+                    </span>
+
+                    <h1 class="hero-title" id="heroTitle">
+                        Welcome Professians!
+                    </h1>
+
+                    <p class="hero-subtitle" id="heroSubtitle">
+                        Innovate • Create • Lead the Future of Technology
+                    </p>
+
+                    <a href="{{ route('student.explore') }}"
+                    class="btn hero-btn">
+
+                        Explore CCS →
+
+                    </a>
+
+                </div>
 
             </div>
-
-        </div>
 
     </div>
     <div class="dashboard-header">
@@ -987,6 +1056,87 @@ function loadExams()
 loadExams();
 
 setInterval(loadExams, 2000);
+
+</script>
+<script>
+
+const videos = [
+    
+    {
+        video: "{{ asset('videos/Vlog1.mp4') }}",
+        title: "Mr. & Ms. PAP 2026",
+        subtitle: "Celebrating talent, charisma, and school spirit."
+    },
+
+    {
+        video: "{{ asset('videos/Vlog2.mp4') }}",
+        title: "Intramurals 2025",
+        subtitle: "One team, one goal, one unforgettable Intramurals 2025."
+    },
+    
+    {
+        video: "{{ asset('videos/Vlog3.mp4') }}",
+        title: "PAP Cheerdance 2025",
+        subtitle: "Igniting the spirit of unity, energy, and school pride."
+    },
+
+];
+
+let currentVideo = 0;
+
+const video = document.getElementById("heroVideo");
+const source = document.getElementById("videoSource");
+
+function loadVideo(index){
+
+    source.src = videos[index].video;
+
+    document.getElementById("heroTitle").innerHTML =
+        videos[index].title;
+
+    document.getElementById("heroSubtitle").innerHTML =
+        videos[index].subtitle;
+
+    video.load();
+
+    video.play();
+
+}
+
+function nextVideo(){
+
+    currentVideo++;
+
+    if(currentVideo >= videos.length){
+
+        currentVideo = 0;
+
+    }
+
+    loadVideo(currentVideo);
+
+}
+
+function previousVideo(){
+
+    currentVideo--;
+
+    if(currentVideo < 0){
+
+        currentVideo = videos.length - 1;
+
+    }
+
+    loadVideo(currentVideo);
+
+}
+
+// Automatically go to next video after it ends
+video.addEventListener("ended", function(){
+
+    nextVideo();
+
+});
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
