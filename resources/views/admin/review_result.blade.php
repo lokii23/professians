@@ -175,15 +175,97 @@
                         📷 Student Uploaded Image
                     </h5>
 
+                    @php
+                        $extension = strtolower(pathinfo($answer->upload_path, PATHINFO_EXTENSION));
+                    @endphp
+
                     @if($answer->upload_path)
 
-                        <img
-                            src="{{ asset('storage/'.$answer->upload_path) }}"
-                            class="img-fluid rounded shadow previewImage"
-                            style="max-width:350px;cursor:pointer;"
-                            data-image="{{ asset('storage/'.$answer->upload_path) }}">
+                        @if(in_array($extension, ['jpg','jpeg','png']))
 
-                    @else
+                            <img
+                                src="{{ asset('storage/'.$answer->upload_path) }}"
+                                class="img-fluid rounded shadow previewImage"
+                                style="max-width:350px;cursor:pointer;"
+                                data-image="{{ asset('storage/'.$answer->upload_path) }}">
+
+                        @elseif($extension == 'pdf')
+
+                            <div class="text-center">
+
+                                <i class="bi bi-file-earmark-pdf-fill text-danger"
+                                style="font-size:70px;"></i>
+
+                                <br><br>
+
+                                <button
+                                    class="btn btn-danger previewPDF"
+                                    data-pdf="{{ asset('storage/'.$answer->upload_path) }}">
+                                    📄 View PDF
+                                </button>
+
+                            </div>
+
+                            @elseif(in_array($extension,['doc','docx']))
+
+                                <div class="text-center">
+
+                                    <i class="bi bi-file-earmark-word-fill text-primary"
+                                    style="font-size:70px;"></i>
+
+                                    <br><br>
+
+                                    <a href="{{ asset('storage/'.$answer->upload_path) }}"
+                                    target="_blank"
+                                    class="btn btn-primary">
+
+                                        Open Word File
+
+                                    </a>
+
+                                </div>
+
+                            @elseif(in_array($extension,['xls','xlsx']))
+
+                                <div class="text-center">
+
+                                    <i class="bi bi-file-earmark-excel-fill text-success"
+                                    style="font-size:70px;"></i>
+
+                                    <br><br>
+
+                                    <a href="{{ asset('storage/'.$answer->upload_path) }}"
+                                    target="_blank"
+                                    class="btn btn-success">
+
+                                        Open Excel File
+
+                                    </a>
+
+                                </div>
+
+                            @elseif(in_array($extension,['ppt','pptx']))
+
+                                <div class="text-center">
+
+                                    <i class="bi bi-file-earmark-ppt-fill text-warning"
+                                    style="font-size:70px;"></i>
+
+                                    <br><br>
+
+                                    <a href="{{ asset('storage/'.$answer->upload_path) }}"
+                                    target="_blank"
+                                    class="btn btn-warning">
+
+                                        Open PowerPoint
+
+                                    </a>
+
+                                </div>
+
+                            @endif
+
+                        @else
 
                         <div class="alert alert-danger">
                             No image uploaded.
@@ -283,6 +365,39 @@
     </div>
 
 </div>
+<!-- PDF PREVIEW MODAL -->
+
+<div class="modal fade" id="pdfPreviewModal" tabindex="-1">
+
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5>PDF Preview</h5>
+
+                <button class="btn-close"
+                        data-bs-dismiss="modal"></button>
+
+            </div>
+
+            <div class="modal-body p-0">
+
+                <iframe
+                    id="pdfViewer"
+                    width="100%"
+                    height="700"
+                    style="border:none;">
+                </iframe>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 <script>
 
@@ -301,5 +416,30 @@ document.querySelectorAll('.previewImage').forEach(image => {
 
 });
 
+</script>
+
+<script>
+    document.querySelectorAll('.previewPDF').forEach(button => {
+
+    button.addEventListener('click', function () {
+
+        document.getElementById('pdfViewer').src =
+            this.dataset.pdf;
+
+        new bootstrap.Modal(
+            document.getElementById('pdfPreviewModal')
+        ).show();
+
+    });
+
+});
+
+// Clear PDF when modal closes
+document.getElementById('pdfPreviewModal')
+.addEventListener('hidden.bs.modal', function(){
+
+    document.getElementById('pdfViewer').src = "";
+
+});
 </script>
 @endsection

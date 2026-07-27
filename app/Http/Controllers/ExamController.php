@@ -273,6 +273,11 @@ class ExamController extends Controller
 
                 if ($request->hasFile("uploads.$question->id")) {
 
+                    $request->validate([
+                        "uploads.$question->id" =>
+                            "file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpg,jpeg,png|max:10240"
+                    ]);
+
                     $path = $request
                         ->file("uploads.$question->id")
                         ->store('student_uploads', 'public');
@@ -378,7 +383,6 @@ class ExamController extends Controller
         $exam = Exam::findOrFail($id);
 
         $questions = Question::where('exam_id', $id)->latest()->get();
-
         return view('admin.questions', compact('exam', 'questions'));
     }
     public function updateQuestion(Request $request, $id)

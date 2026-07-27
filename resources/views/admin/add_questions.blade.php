@@ -190,19 +190,21 @@
 
                     Students will upload
 
-                    <strong>ONE IMAGE</strong>
+                        <strong>ONE FILE</strong>
 
-                    as their answer.
+                        as their answer.
 
-                    <hr>
+                        <hr>
 
-                    Accepted:
+                        Accepted file types:
 
-                    JPG
-
-                    JPEG
-
-                    PNG
+                        <ul class="mb-0">
+                            <li>📄 PDF (.pdf)</li>
+                            <li>📝 Word (.doc, .docx)</li>
+                            <li>📊 Excel (.xls, .xlsx)</li>
+                            <li>📽 PowerPoint (.ppt, .pptx)</li>
+                            <li>🖼 Image (.jpg, .jpeg, .png)</li>
+                        </ul>
 
                 </div>
 

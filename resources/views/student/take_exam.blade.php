@@ -139,12 +139,13 @@
                     <input type="file"
                         class="form-control"
                         name="uploads[{{ $q->id }}]"
-                        accept="image/*"
+                        accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.jpg,.jpeg,.png"
                         required>
 
                     <small class="text-light">
 
-                        Allowed file: JPG, PNG, JPEG
+                        Allowed files:
+                        PDF, Word, Excel, PowerPoint, JPG, PNG, JPEG
 
                     </small>
 

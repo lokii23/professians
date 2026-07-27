@@ -304,30 +304,117 @@
                             <strong>📷 Uploaded Answer</strong>
 
                         </div>
+                        @php
+                            $file = asset('storage/'.$answer->upload_path);
+                            $extension = strtolower(pathinfo($answer->upload_path, PATHINFO_EXTENSION));
+                        @endphp
 
                         @if($answer->upload_path)
 
-                            <a href="{{ asset('storage/'.$answer->upload_path) }}"
-                            target="_blank">
+                            @if(in_array($extension, ['jpg','jpeg','png','gif','webp']))
 
                                 <img
-                                    src="{{ asset('storage/'.$answer->upload_path) }}"
-                                    class="img-fluid rounded shadow"
-                                    style="
-                                        max-width:300px;
-                                        border-radius:15px;
-                                        transition:.3s;
-                                        cursor:pointer;
-                                    ">
+                                    src="{{ $file }}"
+                                    class="img-fluid rounded shadow previewImage"
+                                    style="max-width:300px;cursor:pointer;"
+                                    data-image="{{ $file }}">
 
-                            </a>
+                            @elseif($extension == 'pdf')
+
+                                <div class="card bg-dark border-secondary p-3">
+
+                                    <h5 class="text-danger mb-3">
+                                        📕 PDF File
+                                    </h5>
+
+                                    <a href="{{ $file }}"
+                                    target="_blank"
+                                    class="btn btn-danger">
+
+                                        Open PDF
+
+                                    </a>
+
+                                </div>
+
+                            @elseif(in_array($extension,['doc','docx']))
+
+                                <div class="card bg-dark border-secondary p-3">
+
+                                    <h5 class="text-primary mb-3">
+                                        📘 Word Document
+                                    </h5>
+
+                                    <a href="{{ $file }}"
+                                    target="_blank"
+                                    class="btn btn-primary">
+
+                                        Download Word File
+
+                                    </a>
+
+                                </div>
+
+                            @elseif(in_array($extension,['xls','xlsx']))
+
+                                <div class="card bg-dark border-secondary p-3">
+
+                                    <h5 class="text-success mb-3">
+                                        📗 Excel File
+                                    </h5>
+
+                                    <a href="{{ $file }}"
+                                    target="_blank"
+                                    class="btn btn-success">
+
+                                        Download Excel File
+
+                                    </a>
+
+                                </div>
+
+                            @elseif(in_array($extension,['ppt','pptx']))
+
+                                <div class="card bg-dark border-secondary p-3">
+
+                                    <h5 class="text-warning mb-3">
+                                        📙 PowerPoint
+                                    </h5>
+
+                                    <a href="{{ $file }}"
+                                    target="_blank"
+                                    class="btn btn-warning">
+
+                                        Download Presentation
+
+                                    </a>
+
+                                </div>
+
+                            @else
+
+                                <div class="card bg-dark border-secondary p-3">
+
+                                    <h5 class="text-light mb-3">
+                                        📁 Uploaded File
+                                    </h5>
+
+                                    <a href="{{ $file }}"
+                                    target="_blank"
+                                    class="btn btn-secondary">
+
+                                        Download File
+
+                                    </a>
+
+                                </div>
+
+                            @endif
 
                         @else
 
                             <div class="alert alert-danger">
-
-                                No image uploaded.
-
+                                No file uploaded.
                             </div>
 
                         @endif
@@ -365,5 +452,57 @@
     </div>
 
 </div>
+<div class="modal fade" id="imagePreviewModal">
+
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+
+        <div class="modal-content bg-dark">
+
+            <div class="modal-header border-0">
+
+                <h5 class="text-white">
+                    Uploaded Image
+                </h5>
+
+                <button
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body text-center">
+
+                <img
+                    id="modalPreviewImage"
+                    src=""
+                    class="img-fluid rounded">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.querySelectorAll('.previewImage').forEach(image => {
+
+    image.addEventListener('click', function(){
+
+        document.getElementById('modalPreviewImage').src =
+            this.dataset.image;
+
+        new bootstrap.Modal(
+            document.getElementById('imagePreviewModal')
+        ).show();
+
+    });
+
+});
+
+</script>
 
 @endsection

@@ -10,6 +10,7 @@ class Question extends Model
     'exam_id',
     'question',
     'question_type',
+    'allowed_file_types',
     'option_a',
     'option_b',
     'option_c',

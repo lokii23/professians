@@ -487,10 +487,15 @@
 
                         <div class="score-text">
 
-                            Multiple Choice Score:
+                            Score (Auto Checked):
+
                             <strong>{{ $result->score }}</strong>
+
                             out of
+
                             <strong>{{ $mcQuestions }}</strong>
+
+                            Multiple Choice Questions
 
                         </div>
 
@@ -498,15 +503,17 @@
 
                         <div class="mt-2 text-warning">
 
-                            📷
+                            📁
                             {{ $fileQuestions }}
-                            File Upload Question(s)
+                            File Submission Question(s)
 
                             <br>
 
                             <small>
 
-                                These answers are checked manually by your teacher.
+                                These submissions may include images, PDF, Word, Excel, or PowerPoint files.
+
+                                They are reviewed manually by your instructor.
 
                             </small>
 
@@ -584,7 +591,7 @@
 
         });
 
-    }, 3000);
+    }, 1500);
 
 </script>
 
