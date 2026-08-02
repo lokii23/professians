@@ -30,7 +30,7 @@
             height:100vh;
 
             background:
-                url("{{ asset('bg3.png') }}");
+                url("{{ asset('bg4.jpg') }}");
 
             background-size:cover;
             background-position:center;
@@ -92,11 +92,11 @@
             width:8px;
             height:8px;
 
-            background:#3b82f6;
+            background:#ff0051;
 
             border-radius:50%;
 
-            box-shadow:0 0 20px #3b82f6;
+            box-shadow:0 0 20px #ff0051;
 
             animation:float 10s linear infinite;
         }
@@ -178,12 +178,12 @@
 
             background:linear-gradient(
                 135deg,
-                #2563eb,
-                #1d4ed8
+                #eb2525,
+                #d81d1d
             );
 
             box-shadow:
-                0 0 25px rgba(37,99,235,.5);
+                0 0 25px rgba(100, 0, 0, 0.5);
 
             transition:.35s ease;
 
@@ -197,7 +197,7 @@
             transform:translateY(-4px) scale(1.03);
 
             box-shadow:
-                0 0 45px rgba(37,99,235,.8);
+                0 0 45px rgba(123, 6, 6, 0.8);
         }
 
         .vote-btn::before{
