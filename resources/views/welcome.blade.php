@@ -30,7 +30,7 @@
             height:100vh;
 
             background:
-                url("{{ asset('bg4.jpg') }}");
+                url("{{ asset('new.png') }}");
 
             background-size:cover;
             background-position:center;
