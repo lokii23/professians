@@ -5,6 +5,7 @@ use App\Http\Controllers\ExamController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\GradeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,30 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/student/attendance', function () {
         return view('student.attendance');
     })->name('student.attendance');
+
+    
+
+        // Subject Management
+        Route::post(
+            '/subjects',
+            [GradeController::class, 'storeSubject']
+        )->name('admin.subjects.store');
+
+        Route::delete(
+            '/subjects/{id}',
+            [GradeController::class, 'destroySubject']
+        )->name('admin.subjects.destroy');
+
+
+        Route::get(
+            '/my-grades',
+            [GradeController::class, 'studentIndex']
+        )->name('student.grades');
+
+        Route::get(
+            '/my-grades/subject/{subjectId}',
+            [GradeController::class, 'studentSubject']
+        )->name('student.grades.subject');
     
     });
 
@@ -194,11 +219,53 @@ Route::middleware(['auth', 'admin'])
         )->name('admin.recheck.answer');
 
         Route::put(
-    '/admin/result/{id}/score',
-    [ExamController::class, 'updateScore']
-)->name('admin.result.updateScore');
+            '/admin/result/{id}/score',
+            [ExamController::class, 'updateScore']
+        )->name('admin.result.updateScore');
 
+        // Grade Management
+        Route::get(
+            '/grades',
+            [GradeController::class, 'index']
+        )->name('admin.grades');
+
+        Route::get(
+            '/grades/student/{studentId}',
+            [GradeController::class, 'studentGrades']
+        )->name('admin.grades.student');
+
+        Route::post(
+            '/grades',
+            [GradeController::class, 'store']
+        )->name('admin.grades.store');
+
+        Route::put(
+            '/grades/{id}',
+            [GradeController::class, 'update']
+        )->name('admin.grades.update');
+
+        Route::delete(
+            '/grades/{id}',
+            [GradeController::class, 'destroy']
+        )->name('admin.grades.destroy');
+        Route::post(
+            '/grades/exam-score',
+            [GradeController::class, 'storeExamScore']
+        )->name('admin.grades.exam-score.store');
+
+        Route::get(
+            '/grades/student/{studentId}/exam-scores',
+            [GradeController::class, 'studentExamScores']
+        )->name('admin.grades.exam-scores');
+
+        Route::delete(
+            '/grades/exam-score/{id}',
+            [GradeController::class, 'destroyExamScore']
+        )->name('admin.grades.exam-score.destroy');
+
+        
     });
+    
 
 Route::get('/explore-ccs', function () {
     return view('student.explore-ccs');

@@ -114,6 +114,12 @@
     class="menu-item {{ request()->routeIs('admin.sections') ? 'active' : '' }}">
         👨‍🎓 Students
     </a>
+    </a>
+    
+    <a href="{{ route('admin.grades') }}" 
+    class="menu-item {{ request()->routeIs('admin.grades') ? 'active' : '' }}">
+        📚 Grades
+    </a>
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button class="btn btn-danger w-100 mt-3">Logout</button>
