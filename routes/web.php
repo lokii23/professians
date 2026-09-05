@@ -263,7 +263,15 @@ Route::middleware(['auth', 'admin'])
             [GradeController::class, 'destroyExamScore']
         )->name('admin.grades.exam-score.destroy');
 
-        
+        Route::put(
+            '/grades/exam-score/{id}',
+            [GradeController::class, 'updateExamScore']
+        )->name('admin.grades.exam-score.update');
+
+        Route::delete(
+            '/grades/exam-score/{id}',
+            [GradeController::class, 'destroyExamScore']
+        )->name('admin.grades.exam-score.destroy');
     });
     
 

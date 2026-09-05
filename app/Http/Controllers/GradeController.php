@@ -70,20 +70,8 @@ class GradeController extends Controller
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'subject_id' => 'required|exists:subjects,id',
-
-            'midterm_grade' => [
-                'required',
-                'numeric',
-                'min:0',
-                'max:100'
-            ],
-
-            'final_grade' => [
-                'required',
-                'numeric',
-                'min:0',
-                'max:100'
-            ],
+            'midterm_grade' => ['nullable', 'numeric', 'min:0', 'max:100'],
+            'final_grade' => ['nullable', 'numeric', 'min:0', 'max:100'],
         ]);
 
         /*
@@ -123,10 +111,9 @@ class GradeController extends Controller
         |
         */
 
-        $finalRating = (
-            $request->midterm_grade +
-            $request->final_grade
-        ) / 2;
+        $finalRating = ($request->midterm_grade !== null && $request->final_grade !== null)
+        ? ($request->midterm_grade + $request->final_grade) / 2
+        : null;
 
 
         StudentGrade::create([
@@ -151,40 +138,18 @@ class GradeController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    public function update(
-        Request $request,
-        $id
-    ) {
+   public function update(Request $request, $id)
+    {
         $request->validate([
-            'midterm_grade' => [
-                'required',
-                'numeric',
-                'min:0',
-                'max:100'
-            ],
-
-            'final_grade' => [
-                'required',
-                'numeric',
-                'min:0',
-                'max:100'
-            ],
+            'midterm_grade' => ['nullable', 'numeric', 'min:0', 'max:100'],
+            'final_grade' => ['nullable', 'numeric', 'min:0', 'max:100'],
         ]);
 
         $grade = StudentGrade::findOrFail($id);
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | AUTOMATIC FINAL RATING
-        |--------------------------------------------------------------------------
-        */
-
-        $finalRating = (
-            $request->midterm_grade +
-            $request->final_grade
-        ) / 2;
-
+        $finalRating = ($request->midterm_grade !== null && $request->final_grade !== null)
+            ? ($request->midterm_grade + $request->final_grade) / 2
+            : null;
 
         $grade->update([
             'midterm_grade' => $request->midterm_grade,
@@ -192,13 +157,8 @@ class GradeController extends Controller
             'final_rating' => $finalRating,
         ]);
 
-
-        return back()->with(
-            'success',
-            'Grade updated successfully.'
-        );
+        return back()->with('success', 'Grade updated successfully.');
     }
-
 
     /*
     |--------------------------------------------------------------------------
@@ -355,4 +315,38 @@ class GradeController extends Controller
             'Examination score deleted successfully.'
         );
     }
+
+    public function updateExamScore(Request $request, $id)
+    {
+        $request->validate([
+            'exam_name' => 'required|string|max:255',
+            'exam_type' => 'required|in:midterm,final,quiz,other',
+            'score' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
+            'total_score' => [
+                'required',
+                'numeric',
+                'min:1',
+                'gte:score',
+            ],
+        ]);
+
+        $examScore = ExamScore::findOrFail($id);
+
+        $examScore->update([
+            'exam_name' => $request->exam_name,
+            'exam_type' => $request->exam_type,
+            'score' => $request->score,
+            'total_score' => $request->total_score,
+        ]);
+
+        return back()->with(
+            'success',
+            'Examination score updated successfully.'
+        );
+    }
+
 }
